@@ -1,2 +1,2 @@
-# pepper-space-invaders
+# Pepper Star Battle
 Demo game by Pepper
