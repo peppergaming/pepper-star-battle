@@ -1,0 +1,43 @@
+@import "_variables.scss";
+
+html,
+body {
+  background-color: $cool-gray-90;
+  padding: 0;
+  margin: 0;
+  font-family: Rubik, Roboto, sans-serif, -apple-system;
+  overflow: hidden;
+}
+
+*::-webkit-scrollbar {
+  height: 0.6em;
+  width: $webkit-ScrollbarWidth;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+}
+
+*::-webkit-scrollbar-button {
+  height: 5px;
+  width: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(112, 128, 136, 0.51);
+  outline: 1px solid #53687c;
+  border-radius: 20px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.gPageWrapper {
+  padding-bottom: 3rem;
+}

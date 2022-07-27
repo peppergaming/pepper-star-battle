@@ -1,0 +1,17 @@
+@import "../../styles/colors";
+
+.Login {
+  padding:2rem;
+  height: 400px;
+  width: 350px;
+  border: 1px solid black;
+
+  .EmailInput {
+    height: 3rem;
+  }
+
+  .EmailButton {
+    height: 3.2rem;
+    text-transform: none;
+  }
+}

@@ -28,9 +28,9 @@ const Home: NextPage = () => {
             <p>Try our new demo game build in javascript with NFT integration</p>
           </a>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a href="/login" className={styles.card}>
+            <h2>Login &rarr;</h2>
+            <p>Login with pepper!</p>
           </a>
 
           <a
