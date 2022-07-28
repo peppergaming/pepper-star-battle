@@ -1,0 +1,48 @@
+@import "../../../styles/variables";
+
+.MainLayout {
+  min-height: 100vh;
+  width: 100%;
+  display: grid;
+  overflow-y: auto;
+
+  @media (max-width: $lg - 1  + "px") {
+    grid-template: 1 / auto;
+    grid-template-areas:
+      "H"
+      "M";
+  }
+
+  @media (min-width: $lg + "px") {
+    grid-template: 1/2;
+    grid-template-areas:
+      "H"
+      "M";
+  }
+
+  .Header {
+    grid-area: H;
+  }
+
+  .Main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    grid-area: M;
+    overflow: auto;
+    min-height: calc(100vh - #{$headerHeight});
+    max-height: calc(100vh - #{$headerHeight});
+    background-color: $cool-gray-90;
+
+    .MonitorWrapper {
+      height: 600px;
+      width: 600px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $pepper-40;
+      clip-path: url(#vintageMonitor);
+    }
+  }
+
+}

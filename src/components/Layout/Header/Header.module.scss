@@ -1,0 +1,33 @@
+@import "../../../styles/_variables";
+@import "../../../styles/breakpoints.module";
+
+.Header {
+  position: relative;
+  width: 100%;
+  grid-area: H;
+  background-color: $cool-gray-90;
+  background-image: none;
+  height: $headerHeight;
+  //position: fixed;
+  //z-index: 100;
+
+  .LeftBox {
+    margin: auto;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .LogoutButton {
+    display: flex;
+    color: white;
+    text-transform: capitalize;
+    min-width: 5rem;
+
+    &:hover {
+      margin-left: 1rem;
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+}
