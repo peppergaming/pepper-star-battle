@@ -144,7 +144,7 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
         setIsLoading(true);
         setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
         web3Provider = await loginSdk.connectTo(
-            "google",
+            provider,
             hint,
             loginToken || undefined
         );
