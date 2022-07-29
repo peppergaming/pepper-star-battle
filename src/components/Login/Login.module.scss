@@ -1,11 +1,14 @@
 @import "../../styles/colors";
+@import "../../styles/variables";
 
 .Login {
-  padding:3rem;
+  padding:8rem;
   text-align:center;
-  width: 400PX;
   border-radius: 10px;
   background-color: transparent;
+  @media (max-width: $lg - 1  + "px") {
+    padding:4rem;
+  }
   .EmailInput {
     height: 3rem;
     color:white;
@@ -14,6 +17,8 @@
   .EmailButton {
     height: 3.2rem;
     text-transform: none;
-    color:$pepper-40;
+    color:white;
+    background-color: $pepper-70;
+    font-weight: 700;
   }
 }

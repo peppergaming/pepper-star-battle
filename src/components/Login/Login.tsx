@@ -190,8 +190,8 @@ const ErrorView = ({message}: ErrorViewProps) => {
 
 const AuthorizedView = () => {
     return (
-        <Stack direction={"column"} spacing={3} alignItems={"center"}>
-            <Typography variant={"h3"}>Login Successful</Typography>
+        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding:"10rem"}}>
+            <Typography sx={{color:"white", fontSize:"35px"}}>Login Successful</Typography>
         </Stack>
     );
 };
@@ -199,9 +199,9 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} alignItems={"center"} spacing={3}>
+        <Stack direction={"column"} alignItems={"center"} spacing={3} sx={{padding:"10rem"}}>
             <CircularProgress size={"4rem"} color="primary"/>
-            <Typography variant={"h3"}>{loadMessage}</Typography>
+            <Typography variant={"h3"}  sx={{color:"white"}} >{loadMessage}</Typography>
         </Stack>
     );
 };
@@ -219,10 +219,10 @@ const LoginFormView = ({
         <AuthorizedView/>
     ) : (
         <div className={style.Login}>
-            <Typography fontWeight={600} fontSize={25} sx={{color: "black"}}>
+            <Typography fontWeight={600} fontSize={25} sx={{color: "white"}}>
                 Starship Battle
             </Typography>
-            <Typography mt={1} mb={6} fontSize={16} sx={{color: "black"}}>
+            <Typography mt={1} mb={6} fontSize={16} sx={{color: "white"}}>
                 Demo of the capabilities of Pepper Web3 SDK
             </Typography>
             <Stack mb={3} direction={"column"} spacing={4}>
@@ -231,7 +231,7 @@ const LoginFormView = ({
                     id={"login-mail"}
                     fullWidth
                     label={"email"}
-                    color={"secondary"}
+                    color={"primary"}
                     placeholder={"username@example.com"}
                     onChange={onEmailChange}
                     onKeyUp={async (e) => {
