@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.CloseButton {
+  background-color: $cool-gray-70;
+
+  svg {
+    fill: $cool-gray-100;
+  }
+
+  &:hover {
+    background-color: $cool-gray-30;
+  }
+}
+
+.OpenExternalButton {
+  background-color: transparent;
+  color: $cool-gray-50;
+
+  svg {
+    font-size: 0.7em;
+  }
+
+  &:hover {
+    color: $cool-gray-30;
+    background-color: transparent;
+  }
+}

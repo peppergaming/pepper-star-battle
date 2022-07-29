@@ -1,17 +1,18 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import style from "./Header.module.scss";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import Link from '@mui/material/Link';
+import {UserWidget} from "@/components/Layout/Header/UserWidget";
+import {useAppSelector} from "@/store/hooks";
+import {useAuthConfig} from "@/services/auth";
 
 export const Header = (props: any) => {
     const {theme} = props;
-    const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
+    const userWeb3Profile = useAppSelector((state) => state.auth.userWeb3Profile);
+    const {isPepperLogged} =
+        useAuthConfig();
 
     return (
         <AppBar
@@ -23,7 +24,7 @@ export const Header = (props: any) => {
         >
             <Toolbar sx={{minHeight: "auto!important", height: "100%!important"}}>
                 <div className={style.LeftBox}>
-                    <img src={"/images/logo_white.png"} style={{width: "100px"}}/>
+                    <img src={"/images/logo_white.png"} alt={"Pepper logo"} style={{width: "100px"}}/>
                     <Stack direction={"row"} spacing={3} ml={5}>
                         <Link href="https://peppergaming.com" target="_blank">
                             Website
@@ -35,6 +36,11 @@ export const Header = (props: any) => {
                             SDK
                         </Link>
                     </Stack>
+                </div>
+                <div className={style.RightBox}>
+                    {isPepperLogged && userWeb3Profile && (
+                        <UserWidget user={userWeb3Profile}/>
+                    )}
                 </div>
             </Toolbar>
         </AppBar>

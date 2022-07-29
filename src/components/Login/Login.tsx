@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import style from "./Login.module.scss";
 import TextField from "@mui/material/TextField";
-import { ChangeEvent, useEffect, useState } from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -9,14 +9,13 @@ import GoogleIcon from "../../assets/icons/GoogleIcon";
 import TwitchIcon from "../../assets/icons/TwitchIcon";
 import DiscordIcon from "../../assets/icons/DiscordIcon";
 import IconButton from "@mui/material/IconButton";
-import { PEPPER_OAUTH_TOKEN_KEY } from "../../config/constants";
-import { useAuthConfig } from "../../services/auth";
-import { useRouter } from "next/router";
+import {PEPPER_OAUTH_TOKEN_KEY} from "@/config/constants";
+import {useAuthConfig} from "@/services/auth";
+import {useRouter} from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
-import SuccessIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
-import {Card} from "@mui/material";
+import {useModalContext} from "@/services/modal";
 
 export interface LoginProps {
     onLoggedInCallback?: () => any;
@@ -31,6 +30,7 @@ export interface LoadingViewProps {
 }
 
 export interface LoginFormViewProps {
+    isPepperLogged: boolean;
     isAuthorized: boolean;
     onEmailChange: (event: ChangeEvent<HTMLInputElement>) => void;
     loginWithEmail: () => Promise<void>;
@@ -39,7 +39,7 @@ export interface LoginFormViewProps {
     loginWithTwitch: () => Promise<void>;
 }
 
-export const Login = ({ onLoggedInCallback }: LoginProps) => {
+export const Login = ({onLoggedInCallback}: LoginProps) => {
     const router = useRouter();
     const [email, setEmail] = useState<string | null>(null);
     const [loginToken, setLoginToken] = useState<string | null | undefined>(null);
@@ -63,10 +63,16 @@ export const Login = ({ onLoggedInCallback }: LoginProps) => {
         setEmail(event.target.value);
     };
 
+    const {hideModal, isModalVisible} = useModalContext();
+
     const triggerLogin = async (provider: any, hint?: string) => {
         setIsAuthorizing(true);
-        const signer = await socialLogin(provider, hint, loginToken || undefined);
-        if (signer) {
+        const web3Provider = await socialLogin(
+            provider,
+            hint,
+            loginToken || undefined
+        );
+        if (web3Provider) {
             setIsAuthorized(true);
         }
         setIsAuthorizing(false);
@@ -99,6 +105,12 @@ export const Login = ({ onLoggedInCallback }: LoginProps) => {
         setIsAuthorizing(false);
         setIsLoading(false);
     };
+
+    useEffect(() => {
+        if (isAuthorized && isModalVisible) {
+            hideModal();
+        }
+    }, [isModalVisible, isAuthorized]);
 
     useEffect(() => {
         if (isOauth && router) {
@@ -146,13 +158,14 @@ export const Login = ({ onLoggedInCallback }: LoginProps) => {
     }, [isOauth, oauthStatus]);
 
     if (error) {
-        return <ErrorView message={error} />;
+        return <ErrorView message={error}/>;
     }
 
     return isLoading || isAuthConfigLoading || isAuthorizing ? (
-        <LoadingView authorizing={isAuthorizing} />
+        <LoadingView authorizing={isAuthorizing}/>
     ) : (
         <LoginFormView
+            isPepperLogged={isPepperLogged}
             isAuthorized={isAuthorized}
             onEmailChange={handleEmailChange}
             loginWithEmail={loginWithEmail}
@@ -163,10 +176,10 @@ export const Login = ({ onLoggedInCallback }: LoginProps) => {
     );
 };
 
-const ErrorView = ({ message }: ErrorViewProps) => {
+const ErrorView = ({message}: ErrorViewProps) => {
     return (
         <Stack direction={"column"} spacing={3} alignItems={"center"}>
-            <ErrorIcon sx={{ fontSize: 60 }} color={"error"} />
+            <ErrorIcon sx={{fontSize: 60}} color={"error"}/>
             <Typography variant={"h5"} color={"error"}>
                 Error
             </Typography>
@@ -176,20 +189,18 @@ const ErrorView = ({ message }: ErrorViewProps) => {
 };
 
 const AuthorizedView = () => {
-    // TODO: add "Logged in as ..." and "Not you? -> Logout"
     return (
         <Stack direction={"column"} spacing={3} alignItems={"center"}>
-            <SuccessIcon sx={{ fontSize: 60 }} color={"success"} />
             <Typography variant={"h3"}>Login Successful</Typography>
         </Stack>
     );
 };
 
-const LoadingView = ({ authorizing }: LoadingViewProps) => {
+const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
         <Stack direction={"column"} alignItems={"center"} spacing={3}>
-            <CircularProgress size={"4rem"} color="primary" />
+            <CircularProgress size={"4rem"} color="primary"/>
             <Typography variant={"h3"}>{loadMessage}</Typography>
         </Stack>
     );
@@ -197,21 +208,22 @@ const LoadingView = ({ authorizing }: LoadingViewProps) => {
 
 const LoginFormView = ({
                            isAuthorized,
+                           isPepperLogged,
                            onEmailChange,
-                           loginWithEmail,
-                           loginWithGoogle,
                            loginWithDiscord,
+                           loginWithGoogle,
                            loginWithTwitch,
+                           loginWithEmail
                        }: LoginFormViewProps) => {
-    return isAuthorized ? (
-        <AuthorizedView />
+    return isAuthorized && isPepperLogged ? (
+        <AuthorizedView/>
     ) : (
-        <Card className={style.Login}>
-            <Typography variant={"h5"} fontWeight={500}>
-                Login
+        <div className={style.Login}>
+            <Typography fontWeight={600} fontSize={25} sx={{color: "black"}}>
+                Starship Battle
             </Typography>
-            <Typography mt={1} mb={6} variant={"body2"} color={"text.secondary"}>
-                Select a service or use your email to login
+            <Typography mt={1} mb={6} fontSize={16} sx={{color: "black"}}>
+                Demo of the capabilities of Pepper Web3 SDK
             </Typography>
             <Stack mb={3} direction={"column"} spacing={4}>
                 <TextField
@@ -239,10 +251,10 @@ const LoginFormView = ({
                     Get Started
                 </Button>
             </Stack>
-            <Divider />
-            <Stack alignItems={"center"} direction={"column"}>
-                <Typography mt={2} mb={2} color={"text.secondary"}>
-                    Login with your favourite service
+            <Divider/>
+            <Stack direction={"column"}>
+                <Typography mt={2} mb={2} variant={"body3"} color={"text.secondary"}>
+                    or sign in with your favorite
                 </Typography>
                 <Stack
                     alignItems={"center"}
@@ -251,18 +263,18 @@ const LoginFormView = ({
                     spacing={3}
                 >
                     <IconButton onClick={loginWithGoogle}>
-                        <GoogleIcon />
+                        <GoogleIcon/>
                     </IconButton>
 
                     <IconButton onClick={loginWithDiscord}>
-                        <DiscordIcon />
+                        <DiscordIcon/>
                     </IconButton>
 
                     <IconButton onClick={loginWithTwitch}>
-                        <TwitchIcon />
+                        <TwitchIcon/>
                     </IconButton>
                 </Stack>
             </Stack>
-        </Card>
+        </div>
     );
 };

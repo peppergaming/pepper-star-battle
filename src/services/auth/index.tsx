@@ -1,18 +1,20 @@
-import { LOGIN_STATUS } from "../../config/constants";
+import { isDev,LOGIN_STATUS } from "@/config/constants";
 import { createContext, useContext, useEffect, useState } from "react";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import {
   ADAPTER_STATUS,
   EventSubscriber,
   PepperLogin,
   PepperLoginOptions,
   PepperWallet,
+  UserInfo,
 } from "@peppergaming/auth";
 import {
   setPepperAccessToken,
   setUserWeb3Profile,
-} from "../../store/auth/authSlice";
+} from "@/store/auth/authSlice";
 import { useRouter } from "next/router";
+import { Provider } from "@ethersproject/abstract-provider";
 
 export type OauthStatus = "none" | "pending" | "success";
 
@@ -24,10 +26,10 @@ export interface AuthConfigContextInterface {
   oauthStatus: OauthStatus;
   setOauthStatus: (value: OauthStatus) => void;
   socialLogin: (
-    provider: string,
-    hint?: string,
-    loginToken?: string
-  ) => Promise<PepperWallet | null>;
+      provider: string,
+      hint?: string,
+      loginToken?: string
+  ) => Promise<Provider | null>;
   refreshLogin: (loginToken?: string) => Promise<PepperWallet | null>;
   metaMaskLogin: () => Promise<void>;
   walletConnectLogin: () => Promise<void>;
@@ -40,11 +42,11 @@ export const AuthConfigContext = createContext<AuthConfigContextInterface>({
   loginStatus: LOGIN_STATUS.DISCONNECTED,
   isOauth: false,
   oauthStatus: "none",
+  metaMaskLogin: async () => {},
+  walletConnectLogin: async () => {},
   setOauthStatus: (value: OauthStatus) => {},
   socialLogin: async () => null,
   refreshLogin: async () => null,
-  metaMaskLogin: async () => {},
-  walletConnectLogin: async () => {},
   logout: async () => {},
 });
 
@@ -59,7 +61,7 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
 
   const [isPepperLogged, setIsPepperLogged] = useState<boolean>(false);
   const [loginStatus, setLoginStatus] = useState<any>(
-    LOGIN_STATUS.DISCONNECTED
+      LOGIN_STATUS.DISCONNECTED
   );
   const [oauthStatus, setOauthStatus] = useState<OauthStatus>("none");
 
@@ -76,7 +78,7 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
     setIsLoading(true);
 
     const eventSubscriber: EventSubscriber = {
-      async onConnected(userInfo: any, pepperAccessToken: string) {
+      async onConnected(userInfo: UserInfo, pepperAccessToken?: string) {
         const userWeb3Profile = {
           publicAddress: userInfo.publicAddress,
           name: userInfo.name,
@@ -87,13 +89,13 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
         };
 
         dispatch(
-          setPepperAccessToken({
-            accessToken: pepperAccessToken,
-          })
+            setPepperAccessToken({
+              accessToken: pepperAccessToken || null,
+            })
         );
 
         await dispatch(
-          setUserWeb3Profile({ userWeb3Profile: userWeb3Profile })
+            setUserWeb3Profile({ userWeb3Profile: userWeb3Profile })
         );
 
         setIsPepperLogged(true);
@@ -116,9 +118,9 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
     };
 
     let options: PepperLoginOptions = {
-      isDevelopment: true,
+      isDevelopment: isDev,
       isMobile: isMobile,
-      logLevel: true ? "debug" : "info",
+      logLevel: isDev ? "debug" : "info",
       eventSubscriber,
     };
 
@@ -132,30 +134,30 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
   };
 
   const socialLogin = async (
-    provider: any,
-    hint?: string,
-    loginToken?: string
+      provider: any,
+      hint?: string,
+      loginToken?: string
   ) => {
-    let signer: PepperWallet | null = null;
+    let web3Provider: Provider | null = null;
     if (loginSdk && loginSdk.status === ADAPTER_STATUS.READY) {
       try {
         setIsLoading(true);
         setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
-        signer = await loginSdk.connectTo(
-          provider,
-          hint,
-          loginToken || undefined
+        web3Provider = await loginSdk.connectTo(
+            "google",
+            hint,
+            loginToken || undefined
         );
-
-        if (signer) {
+        if (web3Provider) {
           const pepperAccessToken = loginSdk.pepperAccessToken;
           dispatch(
-            setPepperAccessToken({
-              accessToken: pepperAccessToken,
-            })
+              setPepperAccessToken({
+                accessToken: pepperAccessToken,
+              })
           );
         }
       } catch (e) {
+        console.log(e);
         await logout();
       } finally {
         setIsLoading(false);
@@ -163,7 +165,7 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
     } else {
       console.error("Login sdk not ready!");
     }
-    return signer;
+    return web3Provider;
   };
 
   const refreshLogin = async (loginToken?: string) => {
@@ -171,16 +173,6 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
       return await loginSdk.refreshPepperLogin(loginToken);
     }
     return null;
-  };
-
-  const logout = async () => {
-    await loginSdk?.logout();
-    setIsPepperLogged(false);
-    setLoginStatus(LOGIN_STATUS.DISCONNECTED);
-    dispatch(setUserWeb3Profile({ userWeb3Profile: null }));
-    dispatch(setPepperAccessToken({ accessToken: null }));
-    // await initialize();
-    setIsLoading(false);
   };
 
   const metaMaskLogin = async () => {
@@ -191,6 +183,16 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
   const walletConnectLogin = async () => {
     setIsLoading(true);
     await loginSdk?.connectToWalletConnect();
+  };
+
+  const logout = async () => {
+    await loginSdk?.logout();
+    setIsPepperLogged(false);
+    setLoginStatus(LOGIN_STATUS.DISCONNECTED);
+    dispatch(setUserWeb3Profile({ userWeb3Profile: null }));
+    dispatch(setPepperAccessToken({ accessToken: null }));
+    // await initialize();
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -217,8 +219,8 @@ export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
     logout,
   };
   return (
-    <AuthConfigContext.Provider value={contextProvider}>
-      {children}
-    </AuthConfigContext.Provider>
+      <AuthConfigContext.Provider value={contextProvider}>
+        {children}
+      </AuthConfigContext.Provider>
   );
 };

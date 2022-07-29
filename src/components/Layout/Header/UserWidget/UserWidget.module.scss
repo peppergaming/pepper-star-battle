@@ -1,0 +1,46 @@
+@import "../../../../styles/variables";
+
+
+.UserWidget {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  align-items: center;
+
+  .UserInfo {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 0;
+    width: 100%;
+    //padding: 0 1rem;
+    height: 100%;
+
+    .infos {
+      display: flex;
+      flex-flow: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 0;
+
+      .username {
+        color: $pepper-10;
+        font-weight: 500;
+        max-width: 160px;
+        text-transform: capitalize;
+      }
+
+      .useraddress {
+        color: $peppy-gray-20;
+        max-width: 10rem;
+        font-weight: 500;
+        font-size: small;
+      }
+    }
+  }
+
+}
+
+

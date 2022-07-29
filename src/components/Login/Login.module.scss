@@ -1,17 +1,19 @@
 @import "../../styles/colors";
 
 .Login {
-  padding:2rem;
-  height: 400px;
-  width: 350px;
-  border: 1px solid black;
-
+  padding:3rem;
+  text-align:center;
+  width: 400PX;
+  border-radius: 10px;
+  background-color: transparent;
   .EmailInput {
     height: 3rem;
+    color:white;
   }
 
   .EmailButton {
     height: 3.2rem;
     text-transform: none;
+    color:$pepper-40;
   }
 }
