@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import wrapper from "@/store/store";
 import { AuthConfigProvider } from "@/services/auth";
-import { ModalProvider } from "@/services/modal";
+// import { ModalProvider } from "@/services/modal";
 import {Page} from "@/types/page";
 import {ThemeProvider, useTheme} from "@mui/material";
 
@@ -17,9 +17,9 @@ function PepperStarGame( props : PepperStarGameProps) {
   const getLayout = Component.getLayout || ((page) => page);
   return <ThemeProvider theme={theme}>
     <AuthConfigProvider>
-      <ModalProvider>
+      {/*<ModalProvider>*/}
         {getLayout(<Component {...pageProps} />)}
-      </ModalProvider>
+      {/*</ModalProvider>*/}
     </AuthConfigProvider>
   </ThemeProvider>
 }
