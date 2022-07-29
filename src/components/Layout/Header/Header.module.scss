@@ -5,11 +5,10 @@
   position: relative;
   width: 100%;
   grid-area: H;
-  background-color: $cool-gray-90;
+  //TODO: Remove with proper theming colors
+  background-color: #1C0D28;
   background-image: none;
   height: $headerHeight;
-  //position: fixed;
-  //z-index: 100;
 
   .LeftBox {
     margin: auto;
