@@ -16,6 +16,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
+import {SelectShip} from "@/components/SelectShip";
 
 export interface LoginProps {
     onLoggedInCallback?: () => any;
@@ -199,7 +200,7 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} alignItems={"center"} spacing={3} sx={{padding:"10rem"}}>
+        <Stack direction={"column"} sx={{marginTop:"5rem"}} alignItems={"center"} spacing={3}>
             <CircularProgress size={"4rem"} color="primary"/>
             <Typography variant={"h3"}  sx={{color:"white"}} >{loadMessage}</Typography>
         </Stack>
@@ -216,7 +217,7 @@ const LoginFormView = ({
                            loginWithEmail
                        }: LoginFormViewProps) => {
     return isAuthorized && isPepperLogged ? (
-        <AuthorizedView/>
+        <SelectShip/>
     ) : (
         <div className={style.Login}>
             <Typography fontWeight={600} fontSize={25} sx={{color: "white"}}>
@@ -231,7 +232,12 @@ const LoginFormView = ({
                     id={"login-mail"}
                     fullWidth
                     label={"email"}
-                    color={"primary"}
+                    color={"secondary"}
+                    InputLabelProps={{
+                        style: {
+                            color: 'whitesmoke'
+                        } }}
+                    sx={{ input: { color: "whitesmoke" }, "label": {color: "whitesmoke"} }}
                     placeholder={"username@example.com"}
                     onChange={onEmailChange}
                     onKeyUp={async (e) => {
@@ -253,7 +259,7 @@ const LoginFormView = ({
             </Stack>
             <Divider/>
             <Stack direction={"column"}>
-                <Typography mt={2} mb={2} variant={"body3"} color={"text.secondary"}>
+                <Typography mt={2} mb={2} variant={"body3"} sx={{color:"whitesmoke"}}>
                     or sign in with your favorite
                 </Typography>
                 <Stack
@@ -261,6 +267,7 @@ const LoginFormView = ({
                     justifyContent={"center"}
                     direction={"row"}
                     spacing={3}
+                    sx={{color:"whitesmoke"}}
                 >
                     <IconButton onClick={loginWithGoogle}>
                         <GoogleIcon/>

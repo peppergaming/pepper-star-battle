@@ -2,13 +2,9 @@
 @import "../../styles/variables";
 
 .Login {
-  padding:8rem;
   text-align:center;
   border-radius: 10px;
   background-color: transparent;
-  @media (max-width: $lg - 1  + "px") {
-    padding:4rem;
-  }
   .EmailInput {
     height: 3rem;
     color:white;
