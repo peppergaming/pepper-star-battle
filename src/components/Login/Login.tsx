@@ -17,6 +17,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
 import {SelectShip} from "@/components/SelectShip";
+import {useAppSelector} from "@/store/hooks";
 
 export interface LoginProps {
     onLoggedInCallback?: () => any;
@@ -44,7 +45,6 @@ export const Login = ({onLoggedInCallback}: LoginProps) => {
     const router = useRouter();
     const [email, setEmail] = useState<string | null>(null);
     const [loginToken, setLoginToken] = useState<string | null | undefined>(null);
-
     const [isAuthorizing, setIsAuthorizing] = useState<boolean>(false);
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
@@ -216,8 +216,12 @@ const LoginFormView = ({
                            loginWithTwitch,
                            loginWithEmail
                        }: LoginFormViewProps) => {
-    return isAuthorized && isPepperLogged ? (
-        <SelectShip/>
+
+    const userWeb3Profile = useAppSelector((state) => state.auth.userWeb3Profile);
+
+
+    return isPepperLogged && userWeb3Profile ? (
+        <AuthorizedView/>
     ) : (
         <div className={style.Login}>
             <Typography fontWeight={600} fontSize={25} sx={{color: "white"}}>
