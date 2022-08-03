@@ -1,0 +1,99 @@
+@import "../../../styles/variables";
+
+.AssetCard {
+  margin-top: 10px;
+  background-color: transparent;
+  min-width: 80px;
+  @media (max-height: 750px) {
+    max-height: 20vh;
+  }
+  justify-content: center;
+
+  &:active, &:hover {
+    border: 3px solid #62467a;
+  }
+
+  .AssetCardContent {
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    //background-color: $cool-gray-80;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    @media (max-height: 800px) {
+      max-height: 15vh;
+    }
+
+    .Header {
+      display: flex;
+      width: 100%;
+      padding: 0.1rem;
+      justify-content: flex-end;
+    }
+
+    .Media {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+    }
+  }
+
+  .TextShip {
+    font-size: 10px;
+    color: $pepper-70;
+  }
+}
+
+.AssetCardActive {
+  border: 3px solid #62467a;
+  margin-top: 10px;
+  background-color: transparent;
+  min-width: 80px;
+  @media (max-height: 750px) {
+    max-height: 20vh;
+  }
+  justify-content: center;
+
+  &:active, &:hover {
+    border: 3px solid #62467a;
+  }
+
+  .AssetCardContent {
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    //background-color: $cool-gray-80;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    @media (max-height: 800px) {
+      max-height: 15vh;
+    }
+
+    .Header {
+      display: flex;
+      width: 100%;
+      padding: 0.1rem;
+      justify-content: flex-end;
+    }
+
+    .Media {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+    }
+  }
+
+  .TextShip {
+    font-size: 10px;
+    color: $pepper-70;
+  }
+}
+

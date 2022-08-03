@@ -191,8 +191,8 @@ const ErrorView = ({message}: ErrorViewProps) => {
 
 const AuthorizedView = () => {
     return (
-        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding:"10rem"}}>
-            <Typography sx={{color:"white", fontSize:"35px"}}>Login Successful</Typography>
+        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding: "10rem"}}>
+            <Typography sx={{color: "white", fontSize: "35px"}}>Login Successful</Typography>
         </Stack>
     );
 };
@@ -200,9 +200,9 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} sx={{marginTop:"5rem"}} alignItems={"center"} spacing={3}>
+        <Stack direction={"column"} sx={{marginTop: "5rem"}} alignItems={"center"} spacing={3}>
             <CircularProgress size={"4rem"} color="primary"/>
-            <Typography variant={"h3"}  sx={{color:"white"}} >{loadMessage}</Typography>
+            <Typography variant={"h3"} sx={{color: "white"}}>{loadMessage}</Typography>
         </Stack>
     );
 };
@@ -221,7 +221,7 @@ const LoginFormView = ({
 
 
     return isPepperLogged && userWeb3Profile ? (
-        <AuthorizedView/>
+        <SelectShip/>
     ) : (
         <div className={style.Login}>
             <Typography fontWeight={600} fontSize={25} sx={{color: "white"}}>
@@ -240,8 +240,9 @@ const LoginFormView = ({
                     InputLabelProps={{
                         style: {
                             color: 'whitesmoke'
-                        } }}
-                    sx={{ input: { color: "whitesmoke" }, "label": {color: "whitesmoke"} }}
+                        }
+                    }}
+                    sx={{input: {color: "whitesmoke"}, "label": {color: "whitesmoke"}}}
                     placeholder={"username@example.com"}
                     onChange={onEmailChange}
                     onKeyUp={async (e) => {
@@ -263,7 +264,7 @@ const LoginFormView = ({
             </Stack>
             <Divider/>
             <Stack direction={"column"}>
-                <Typography mt={2} mb={2} variant={"body3"} sx={{color:"whitesmoke"}}>
+                <Typography mt={2} mb={2} variant={"body3"} sx={{color: "whitesmoke"}}>
                     or sign in with your favorite
                 </Typography>
                 <Stack
@@ -271,7 +272,7 @@ const LoginFormView = ({
                     justifyContent={"center"}
                     direction={"row"}
                     spacing={3}
-                    sx={{color:"whitesmoke"}}
+                    sx={{color: "whitesmoke"}}
                 >
                     <IconButton onClick={loginWithGoogle}>
                         <GoogleIcon/>
