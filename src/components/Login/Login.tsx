@@ -16,7 +16,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
-import {SelectShip} from "@/components/SelectShip";
 import {useAppSelector} from "@/store/hooks";
 
 export interface LoginProps {
