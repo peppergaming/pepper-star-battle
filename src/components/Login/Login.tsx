@@ -19,6 +19,7 @@ import {useModalContext} from "@/services/modal";
 import {useAppSelector} from "@/store/hooks";
 
 export interface LoginProps {
+
     onLoggedInCallback?: () => any;
 }
 
@@ -190,7 +191,7 @@ const ErrorView = ({message}: ErrorViewProps) => {
 
 const AuthorizedView = () => {
     return (
-        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding:"10rem"}}>
+        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding:"16rem"}}>
             <Typography sx={{color:"white", fontSize:"35px"}}>Login Successful</Typography>
         </Stack>
     );
@@ -199,7 +200,7 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} sx={{marginTop:"5rem"}} alignItems={"center"} spacing={3}>
+        <Stack direction={"column"} sx={{marginTop:"16rem"}} alignItems={"center"} spacing={3}>
             <CircularProgress size={"4rem"} color="primary"/>
             <Typography variant={"h3"}  sx={{color:"white"}} >{loadMessage}</Typography>
         </Stack>
