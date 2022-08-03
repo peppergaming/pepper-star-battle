@@ -200,7 +200,7 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} sx={{marginTop:"16rem"}} alignItems={"center"} spacing={3}>
+        <Stack direction={"column"} sx={{marginTop:"12rem"}} alignItems={"center"} spacing={3}>
             <CircularProgress size={"4rem"} color="primary"/>
             <Typography variant={"h3"}  sx={{color:"white"}} >{loadMessage}</Typography>
         </Stack>
