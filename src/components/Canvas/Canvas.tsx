@@ -1,27 +1,38 @@
-import React, {useEffect, useRef} from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import useCanvas from "./useCanvas";
 
 export interface CanvasProps {
-  width?: number
-  height?: number
+  draw: (ctx: any, frameCount: number) => void,
+  width?: number,
+  height?: number,
+  options?: any
 }
 
-const Canvas = ({width, height}: CanvasProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (canvas) {
-      const context = canvas.getContext('2d')
-      if (context) {
-        context.fillStyle = '#000000'
-        context.fillRect(0, 0, context.canvas.width, context.canvas.height)
-      }
-    }
 
-  }, [])
+const Canvas = (props: CanvasProps) => {
+  const {draw, options, ...rest} = props;
+  const canvasRef = useCanvas(draw, options);
 
+  return <canvas ref={canvasRef} {...rest} />;
+};
 
-  return <canvas ref={canvasRef} height={height} width={width}/>
-}
+Canvas.defaultProps = {
+  draw: () => {
+  }
+};
 
+Canvas.propTypes = {
+  draw: PropTypes.func.isRequired,
+  options: PropTypes.shape({
+    context: PropTypes.oneOf([
+      "2d",
+      "webgl",
+      "experimental-webgl",
+      "webgl2",
+      "bitmaprenderer"
+    ])
+  })
+};
 
 export default Canvas;
