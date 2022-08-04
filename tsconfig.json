@@ -52,6 +52,9 @@
       ],
       "@/layouts/*": [
         "layouts/*"
+      ],
+      "@/game/*": [
+        "game/*"
       ]
     },
     "incremental": true

@@ -84,7 +84,7 @@ export default class EnemyController {
 
   updateVelocityAndDirection() {
     for (const enemyRow of this.enemyRows) {
-      if (this.currentDirection == MovingDirection.right) {
+      if (this.currentDirection === MovingDirection.right) {
         this.xVelocity = this.defaultXVelocity;
         this.yVelocity = 0;
         const rightMostEnemy = enemyRow[enemyRow.length - 1];

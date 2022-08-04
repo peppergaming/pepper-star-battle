@@ -10,17 +10,17 @@ import breakpoints from "./breakpoints.module.scss";
 import React from "react";
 // import {BreakpointOverrides} from "@material-ui/core/styles/createBreakpoints"
 
-declare module "@mui/material/IconButton" {
-  interface IconButtonPropsSizeOverrides {
-    extraSmall: true;
-  }
-}
-
-declare module "@mui/material/Button" {
-  interface ButtonPropsSizeOverrides {
-    extraLarge: true;
-  }
-}
+// declare module "@mui/material/IconButton" {
+//   interface IconButtonPropsSizeOverrides {
+//     extraSmall: true;
+//   }
+// }
+//
+// declare module "@mui/material/Button" {
+//   interface ButtonPropsSizeOverrides {
+//     extraLarge: true;
+//   }
+// }
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     body3: React.CSSProperties;
@@ -39,16 +39,16 @@ declare module "@mui/material/Typography" {
 
 // Create a theme instance.
 const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: +breakpoints.xs,
-      sm: +breakpoints.sm,
-      md: +breakpoints.md,
-      lg: +breakpoints.lg,
-      xl: +breakpoints.xl,
-      // xxl: +breakpoints.xxl,
-    },
-  },
+  // breakpoints: {
+  //   values: {
+  //     xs: +breakpoints.xs,
+  //     sm: +breakpoints.sm,
+  //     md: +breakpoints.md,
+  //     lg: +breakpoints.lg,
+  //     xl: +breakpoints.xl,
+  //     // xxl: +breakpoints.xxl,
+  //   },
+  // },
   palette: {
     mode: "dark",
     primary: {
@@ -71,39 +71,39 @@ const theme = createTheme({
       fontSize: "0.7rem",
     },
   },
-  components: {
-    MuiIconButton: {
-      variants: [
-        {
-          props: { size: "extraSmall" },
-          style: {
-            padding: "2px",
-          },
-        },
-      ],
-    },
-    MuiButton: {
-      variants: [
-        {
-          props: { size: "extraLarge" },
-          style: {
-            fontSize: "2em",
-            // padding: "2px",
-          },
-        },
-      ],
-    },
-    // MuiTypography: {
-    //   variants: [
-    //     {
-    //       props: { variant: "body2", fontSize: "small" },
-    //       style: {
-    //         fontSize: "0.7rem",
-    //       },
-    //     },
-    //   ],
-    // },
-  },
+  // components: {
+  //   MuiIconButton: {
+  //     variants: [
+  //       {
+  //         props: { size: "extraSmall" },
+  //         style: {
+  //           padding: "2px",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   MuiButton: {
+  //     variants: [
+  //       {
+  //         props: { size: "extraLarge" },
+  //         style: {
+  //           fontSize: "2em",
+  //           // padding: "2px",
+  //         },
+  //       },
+  //     ],
+  //   },
+  //   // MuiTypography: {
+  //   //   variants: [
+  //   //     {
+  //   //       props: { variant: "body2", fontSize: "small" },
+  //   //       style: {
+  //   //         fontSize: "0.7rem",
+  //   //       },
+  //   //     },
+  //   //   ],
+  //   // },
+  // },
 });
 
 export default theme;

@@ -1,13 +1,16 @@
 import React from "react";
 import type {Page} from "@/types/page";
 import {Login} from "@/components/Login/Login";
-import {MainLayout} from "@/components/Layout/MainLayout";
+import {MainLayout} from "@/components/../layouts/MainLayout";
+import {useAuthConfig} from "@/services/auth";
+import {Game} from "@/components/Game";
 
-const LoginPage = () => {
-    return (
-        <Login/>
-    );
+const HomePage = () => {
+  const {isPepperLogged} = useAuthConfig();
+  return (
+    isPepperLogged ? <Game/> : <Login/>
+  );
 };
-LoginPage.getLayout = (page: Page) => <MainLayout>{page}</MainLayout>;
+HomePage.getLayout = (page: Page) => <MainLayout>{page}</MainLayout>;
 
-export default LoginPage;
+export default HomePage;

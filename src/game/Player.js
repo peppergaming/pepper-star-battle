@@ -13,7 +13,7 @@ export default class Player {
     this.width = 80;
     this.height = 80;
     this.image = new Image();
-    this.image.src = "images/player.png";
+    this.image.src = "/images/player.png";
 
     document.addEventListener("keydown", this.keydown);
     document.addEventListener("keyup", this.keyup);
@@ -49,25 +49,25 @@ export default class Player {
   }
 
   keydown = (event) => {
-    if (event.code == "ArrowRight") {
+    if (event.code === "ArrowRight" || event.code === "KeyD") {
       this.rightPressed = true;
     }
-    if (event.code == "ArrowLeft") {
+    if (event.code === "ArrowLeft" || event.code === "KeyA") {
       this.leftPressed = true;
     }
-    if (event.code == "Space") {
+    if (event.code === "Space") {
       this.shootPressed = true;
     }
   };
 
   keyup = (event) => {
-    if (event.code == "ArrowRight") {
+    if (event.code === "ArrowRight" || event.code === "KeyD") {
       this.rightPressed = false;
     }
-    if (event.code == "ArrowLeft") {
+    if (event.code === "ArrowLeft" || event.code === "KeyA") {
       this.leftPressed = false;
     }
-    if (event.code == "Space") {
+    if (event.code === "Space") {
       this.shootPressed = false;
     }
   };

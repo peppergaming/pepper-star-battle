@@ -4,7 +4,7 @@ import style from "./Header.module.scss";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
 import Link from '@mui/material/Link';
-import {UserWidget} from "@/components/Layout/Header/UserWidget";
+import {UserWidget} from "./UserWidget";
 import {useAppSelector} from "@/store/hooks";
 import {useAuthConfig} from "@/services/auth";
 
@@ -37,7 +37,7 @@ export const Header = (props: any) => {
                         </Link>
                     </Stack>
                 </div>
-                <div className={style.RightBox}>
+                <div >
                     {isPepperLogged && userWeb3Profile && (
                         <UserWidget user={userWeb3Profile}/>
                     )}

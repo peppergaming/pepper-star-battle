@@ -16,10 +16,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
-import {SelectShip} from "@/components/SelectShip";
 import {useAppSelector} from "@/store/hooks";
 
 export interface LoginProps {
+
     onLoggedInCallback?: () => any;
 }
 
@@ -191,7 +191,7 @@ const ErrorView = ({message}: ErrorViewProps) => {
 
 const AuthorizedView = () => {
     return (
-        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding: "10rem"}}>
+        <Stack direction={"column"} spacing={3} alignItems={"center"} sx={{padding: "16rem"}}>
             <Typography sx={{color: "white", fontSize: "35px"}}>Login Successful</Typography>
         </Stack>
     );
@@ -200,7 +200,7 @@ const AuthorizedView = () => {
 const LoadingView = ({authorizing}: LoadingViewProps) => {
     const loadMessage = authorizing ? "Authorizing" : "Loading";
     return (
-        <Stack direction={"column"} sx={{marginTop: "5rem"}} alignItems={"center"} spacing={3}>
+        <Stack direction={"column"} sx={{marginTop: "12rem"}} alignItems={"center"} spacing={3}>
             <CircularProgress size={"4rem"} color="primary"/>
             <Typography variant={"h3"} sx={{color: "white"}}>{loadMessage}</Typography>
         </Stack>
@@ -221,7 +221,7 @@ const LoginFormView = ({
 
 
     return isPepperLogged && userWeb3Profile ? (
-        <SelectShip/>
+        <AuthorizedView/>
     ) : (
         <div className={style.Login}>
             <Typography fontWeight={600} fontSize={25} sx={{color: "white"}}>
@@ -264,7 +264,7 @@ const LoginFormView = ({
             </Stack>
             <Divider/>
             <Stack direction={"column"}>
-                <Typography mt={2} mb={2} variant={"body3"} sx={{color: "whitesmoke"}}>
+                <Typography mt={2} mb={2} variant={"body2"} sx={{color: "whitesmoke"}}>
                     or sign in with your favorite
                 </Typography>
                 <Stack
