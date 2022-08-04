@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../styles/variables";
 
 .MainLayout {
   min-height: 100vh;
@@ -43,25 +43,29 @@
       position: relative;
       padding: 10px;
       @media (max-width: $lg - 1  + "px") {
-        padding:4rem;
+        padding: 4rem;
       }
     }
 
     .MonitorContent {
-      width: 100%;
-      height: 100%;
+      content: " ";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 0;
+      bottom: 0;
       background-color: transparent;
     }
 
     .MonitorFrame {
       content: " ";
       position: absolute;
-      top:0;
+      top: 0;
       left: 0;
       right: 0;
       bottom: 0;
       background-size: contain;
-      background-image: url("../../../../public/images/monitor_frame.png");
+      background-image: url("../../../public/images/monitor_frame.png");
       background-repeat: no-repeat;
     }
   }
