@@ -28,7 +28,6 @@ export interface LoadingViewProps {
 
 export interface LoginFormViewProps {
     isPepperLogged: boolean;
-    isAuthorized: boolean;
     onEmailChange: (event: ChangeEvent<HTMLInputElement>) => void;
     loginWithEmail: () => Promise<void>;
     loginWithGoogle: () => Promise<void>;
@@ -203,7 +202,6 @@ const LoadingView = ({authorizing}: LoadingViewProps) => {
 };
 
 const LoginFormView = ({
-                           isAuthorized,
                            isPepperLogged,
                            onEmailChange,
                            loginWithDiscord,
