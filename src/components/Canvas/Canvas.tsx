@@ -1,4 +1,4 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import PropTypes from "prop-types";
 import useCanvas from "./useCanvas";
 
@@ -10,12 +10,12 @@ export interface CanvasProps {
 }
 
 
-const Canvas = (props: CanvasProps) => {
+const Canvas = forwardRef((props: CanvasProps, ref) => {
   const {draw, options, ...rest} = props;
-  const canvasRef = useCanvas(draw, options);
+  useCanvas(draw, options, ref);
 
-  return <canvas ref={canvasRef} {...rest} />;
-};
+  return <canvas ref={ref} {...rest} />;
+});
 
 Canvas.defaultProps = {
   draw: () => {

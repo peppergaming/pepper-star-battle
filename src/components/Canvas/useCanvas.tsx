@@ -14,8 +14,8 @@ const updateCanvasSize = (canvas: HTMLCanvasElement, context: CanvasRenderingCon
   return false;
 };
 
-const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context: null}) => {
-  const canvasRef = useRef(null);
+const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context: null}, canvasRef) => {
+  // const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -26,7 +26,7 @@ const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context:
       if (context) {
         const render = () => {
           frameCount++;
-          updateCanvasSize(canvas, context);
+          // updateCanvasSize(canvas, context);
           draw(context, frameCount);
           animationFrameId = window.requestAnimationFrame(render);
         };
