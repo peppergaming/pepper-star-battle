@@ -19,7 +19,7 @@ function PepperStarGame(props: PepperStarGameProps) {
   return <>
     <Head>
       <title>Pepper Star Battle</title>
-      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     </Head>
     <ThemeProvider theme={theme}>
       <AuthConfigProvider>
