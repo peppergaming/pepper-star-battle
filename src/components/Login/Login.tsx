@@ -18,11 +18,6 @@ import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
 import {useAppSelector} from "@/store/hooks";
 
-export interface LoginProps {
-
-    onLoggedInCallback?: () => any;
-}
-
 export interface ErrorViewProps {
     message?: string;
 }
@@ -41,7 +36,7 @@ export interface LoginFormViewProps {
     loginWithTwitch: () => Promise<void>;
 }
 
-export const Login = ({onLoggedInCallback}: LoginProps) => {
+export const Login = () => {
     const router = useRouter();
     const [email, setEmail] = useState<string | null>(null);
     const [loginToken, setLoginToken] = useState<string | null | undefined>(null);
