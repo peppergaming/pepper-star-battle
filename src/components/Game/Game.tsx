@@ -4,6 +4,10 @@ import BulletController from "@/game/BulletController";
 import EnemyController from "@/game/EnemyController";
 import Player from "@/game/Player";
 import style from "./Game.module.scss"
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import ReplayIcon from '@mui/icons-material/Replay';
+import Button from "@mui/material/Button";
 
 let playerBulletController;
 let enemyBulletController;
@@ -20,8 +24,16 @@ export const Game = () => {
     console.debug("Game is over with victory: ", victory)
     setVictory(victory)
     setRoundActive(false)
+    isGameOver = false;
+    didWin = false;
   }
-  return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver victory={victory}/>
+
+  const handleReplay = () => {
+    setRoundActive(true);
+    setVictory(false);
+  }
+
+  return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
 }
 
 interface RoundProps {
@@ -104,12 +116,7 @@ export const Round = ({handleGameOver}: RoundProps) => {
     }
   };
 
-
-  useEffect(() => {
-    if (initialized) {
-      return
-    }
-
+  const initialize = () => {
     const canvas = canvasRef.current;
     if (canvas) {
       // const context = (canvas as HTMLCanvasElement).getContext("2d");
@@ -131,17 +138,32 @@ export const Round = ({handleGameOver}: RoundProps) => {
         clearInterval(gameInterval)
       }
     }
+  }
+
+  useEffect(() => {
+    if (initialized) {
+      return
+    }
+    initialize();
+
   }, [canvasRef])
 
   return <div className={style.Game}><Canvas ref={canvasRef} draw={draw} height={600} width={600}/></div>
 }
 
 interface GameOverProps {
+  handleReplay: () => void
   victory: boolean
 }
 
-export const GameOver = ({victory}: GameOverProps) => {
-  return <div>
-    <p>{victory ? "You won" : "Game Over"}</p>
-  </div>
+export const GameOver = ({victory, handleReplay}: GameOverProps) => {
+  return <Stack alignItems={"center"} direction={"column"} spacing={12}>
+    <Stack direction={"column"} alignItems={"center"} justifyContent={"flex-start"} spacing={1} mt={20}>
+      <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>{victory ? "Yeeeh" : "Nooo"}</Typography>
+      <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>{victory ? "You Won" : "Game Over"}</Typography>
+    </Stack>
+    <Button sx={{color: "white"}} endIcon={<ReplayIcon/>} onClick={handleReplay}>
+      Replay
+    </Button>
+  </Stack>
 }

@@ -47,15 +47,6 @@
       }
     }
 
-    .MonitorContent {
-      content: " ";
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      right: 0;
-      bottom: 0;
-      background-color: transparent;
-    }
 
     .MonitorFrame {
       content: " ";
@@ -67,7 +58,19 @@
       background-size: contain;
       background-image: url("../../../public/images/monitor_frame.png");
       background-repeat: no-repeat;
+      pointer-events: none;
     }
+
+    .MonitorContent {
+      content: " ";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+    }
+
   }
 
 }
