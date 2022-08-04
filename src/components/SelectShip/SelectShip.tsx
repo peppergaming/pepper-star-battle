@@ -14,7 +14,11 @@ const defaultShip = {
     attributes: [{"name": "engine", "value": "turbo"}]
 };
 
-export const SelectShip = () => {
+interface SelectShipProps{
+    handlePlay: (ship: any) => void
+}
+
+export const SelectShip = ({handlePlay}: SelectShipProps) => {
     const [pepperShips, setPepperShips] = React.useState([defaultShip]);
 
     useEffect(() => {
@@ -49,6 +53,7 @@ export const SelectShip = () => {
                 className={style.EmailButton}
                 fullWidth
                 variant={"contained"}
+                onClick={handlePlay}
             >
                 Play
             </Button>

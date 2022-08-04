@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import ReplayIcon from '@mui/icons-material/Replay';
 import Button from "@mui/material/Button";
+import {SelectShip} from "@/components/SelectShip";
 
 let playerBulletController;
 let enemyBulletController;
@@ -20,10 +21,14 @@ let didWin = false;
 export const Game = () => {
   const [roundActive, setRoundActive] = useState<boolean>(true)
   const [victory, setVictory] = useState<boolean>(false)
+  const [gameOver, setGameOver] = useState<boolean>(false)
+  const [selectedShip, setSelectedShip] = useState<any>(null)
+
   const handleGameOver = (victory) => {
     console.debug("Game is over with victory: ", victory)
     setVictory(victory)
     setRoundActive(false)
+    setGameOver(true);
     isGameOver = false;
     didWin = false;
   }
@@ -33,14 +38,24 @@ export const Game = () => {
     setVictory(false);
   }
 
-  return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
+  const handlePlay = (ship) => {
+    setSelectedShip(ship);
+    setRoundActive(true);
+    setGameOver(false);
+  }
+  if (roundActive && selectedShip)
+    return <Round selectedShip={selectedShip} handleGameOver={handleGameOver}/>
+
+  return gameOver ?  <GameOver handleReplay={handleReplay} victory={victory}/> : <SelectShip handlePlay={handlePlay}/>
+  // return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
 }
 
 interface RoundProps {
+  selectedShip: any
   handleGameOver: (victory: boolean) => void
 }
 
-export const Round = ({handleGameOver}: RoundProps) => {
+export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
   const getBackground = () => {
     const background = new Image();
     background.src = "/images/space.png";
