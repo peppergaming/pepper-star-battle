@@ -274,15 +274,15 @@ const LoginFormView = ({
                     spacing={3}
                     sx={{color: "whitesmoke"}}
                 >
-                    <IconButton onClick={loginWithGoogle}>
+                    <IconButton sx={{color: "white"}} onClick={loginWithGoogle} title="Google">
                         <GoogleIcon/>
                     </IconButton>
 
-                    <IconButton onClick={loginWithDiscord}>
+                    <IconButton sx={{color: "white"}} onClick={loginWithDiscord} title="Discord">
                         <DiscordIcon/>
                     </IconButton>
 
-                    <IconButton onClick={loginWithTwitch}>
+                    <IconButton sx={{color: "white"}} onClick={loginWithTwitch} title="Twitch" >
                         <TwitchIcon/>
                     </IconButton>
                 </Stack>
