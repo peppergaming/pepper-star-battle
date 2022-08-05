@@ -1,6 +1,5 @@
 import {isDev, LOGIN_STATUS} from "@/config/constants";
 import {createContext, useContext, useEffect, useState} from "react";
-import {useAppDispatch} from "@/store/hooks";
 import {
   ADAPTER_STATUS,
   EventSubscriber,
@@ -9,22 +8,16 @@ import {
   PepperWallet,
   UserInfo,
 } from "@peppergaming/auth";
-import {
-  setPepperAccessToken,
-  setUserWeb3Profile,
-} from "@/store/auth/authSlice";
-import {useRouter} from "next/router";
+
 import {Provider} from "@ethersproject/abstract-provider";
 
 export type OauthStatus = "none" | "pending" | "success";
 
 export interface AuthConfigContextInterface {
+  userInfo?: Partial<UserInfo>;
   isLoading: boolean;
   isPepperLogged: boolean;
   loginStatus: { key: string; loading: boolean; message: string };
-  isOauth: boolean;
-  oauthStatus: OauthStatus;
-  setOauthStatus: (value: OauthStatus) => void;
   socialLogin: (
     provider: string,
     hint?: string,
@@ -33,6 +26,7 @@ export interface AuthConfigContextInterface {
   refreshLogin: (loginToken?: string) => Promise<PepperWallet | null>;
   metaMaskLogin: () => Promise<void>;
   walletConnectLogin: () => Promise<void>;
+  provider?: Provider;
   logout: () => Promise<void>;
 }
 
@@ -40,13 +34,9 @@ export const AuthConfigContext = createContext<AuthConfigContextInterface>({
   isLoading: false,
   isPepperLogged: false,
   loginStatus: LOGIN_STATUS.DISCONNECTED,
-  isOauth: false,
-  oauthStatus: "none",
   metaMaskLogin: async () => {
   },
   walletConnectLogin: async () => {
-  },
-  setOauthStatus: (value: OauthStatus) => {
   },
   socialLogin: async () => null,
   refreshLogin: async () => null,
@@ -67,15 +57,11 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
   const [loginStatus, setLoginStatus] = useState<any>(
     LOGIN_STATUS.DISCONNECTED
   );
-  const [oauthStatus, setOauthStatus] = useState<OauthStatus>("none");
-
   const [loginSdk, setLoginSdk] = useState<PepperLogin | null>(null);
 
-  const [isOauth, setIsOauth] = useState<boolean>(false);
+  const [provider, setProvider] = useState<Provider>()
 
-  const router = useRouter();
-
-  const dispatch = useAppDispatch();
+  const [userInfo, setUserInfo] = useState<Partial<UserInfo>>()
 
 
   const initialize = async (isMobile = false) => {
@@ -83,24 +69,14 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
 
     const eventSubscriber: EventSubscriber = {
       async onConnected(userInfo: UserInfo, pepperAccessToken?: string) {
-        const userWeb3Profile = {
+        setUserInfo({
           publicAddress: userInfo.publicAddress,
           name: userInfo.name,
           email: userInfo.email,
           typeOfLogin: userInfo.typeOfLogin,
           verifier: userInfo.verifier,
           verifierId: userInfo.verifierId,
-        };
-
-        dispatch(
-          setPepperAccessToken({
-            accessToken: pepperAccessToken || null,
-          })
-        );
-
-        await dispatch(
-          setUserWeb3Profile({userWeb3Profile: userWeb3Profile})
-        );
+        })
 
         setIsPepperLogged(true);
         setLoginStatus(LOGIN_STATUS.CONNECTED);
@@ -159,11 +135,6 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
         );
         if (web3Provider) {
           const pepperAccessToken = loginSdk.pepperAccessToken;
-          dispatch(
-            setPepperAccessToken({
-              accessToken: pepperAccessToken,
-            })
-          );
         }
       } catch (e) {
         console.log(e);
@@ -198,9 +169,7 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     await loginSdk?.logout();
     setIsPepperLogged(false);
     setLoginStatus(LOGIN_STATUS.DISCONNECTED);
-    dispatch(setUserWeb3Profile({userWeb3Profile: null}));
-    dispatch(setPepperAccessToken({accessToken: null}));
-    // await initialize();
+    setUserInfo(undefined)
     setIsLoading(false);
   };
 
@@ -208,19 +177,13 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     initialize();
   }, []);
 
-  useEffect(() => {
-    if (router && router.isReady) {
-      setIsOauth(router.route === "/oauth");
-    }
-  }, [router]);
 
   const contextProvider = {
+    userInfo,
     isLoading,
     isPepperLogged,
     loginStatus,
-    isOauth,
-    oauthStatus,
-    setOauthStatus,
+    provider,
     socialLogin,
     refreshLogin,
     metaMaskLogin,

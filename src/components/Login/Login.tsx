@@ -16,7 +16,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
 import {useModalContext} from "@/services/modal";
-import {useAppSelector} from "@/store/hooks";
 
 export interface ErrorViewProps {
     message?: string;
@@ -210,10 +209,10 @@ const LoginFormView = ({
                            loginWithEmail
                        }: LoginFormViewProps) => {
 
-    const userWeb3Profile = useAppSelector((state) => state.auth.userWeb3Profile);
+    const {userInfo} = useAuthConfig();
 
 
-    return isPepperLogged && userWeb3Profile ? (
+    return isPepperLogged && userInfo ? (
         <AuthorizedView/>
     ) : (
         <div className={style.Login}>

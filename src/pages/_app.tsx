@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import type {AppProps} from 'next/app'
-import wrapper from "@/store/store";
 import {AuthConfigProvider} from "@/services/auth";
 import {Page} from "@/types/page";
 import {ThemeProvider, useTheme} from "@mui/material";
@@ -11,7 +10,7 @@ interface PepperStarGameProps extends AppProps {
   Component: Page;
 }
 
-function PepperStarGame(props: PepperStarGameProps) {
+function PepperStarBattle(props: PepperStarGameProps) {
   const {Component, pageProps} = props;
 
   const theme = useTheme();
@@ -29,4 +28,4 @@ function PepperStarGame(props: PepperStarGameProps) {
   </>
 }
 
-export default wrapper.withRedux(PepperStarGame);
+export default PepperStarBattle;

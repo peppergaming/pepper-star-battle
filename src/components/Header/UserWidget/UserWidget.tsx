@@ -100,7 +100,6 @@ export const UserWidget = ({user}: any) => {
                 role={undefined}
                 placement="bottom-end"
                 transition
-                className={style.Popper}
             >
                 {({TransitionProps, placement}) => (
                     <Grow

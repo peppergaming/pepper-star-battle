@@ -3,7 +3,7 @@ import {
     GenericModal,
     ModalWrapper,
     ModalWrapperProps,
-} from "../../components/Modal/";
+} from "@/components/Modal";
 import {IObjectKeys} from "@/config/constants";
 
 /** Components **/
