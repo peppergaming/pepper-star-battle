@@ -1,4 +1,4 @@
-import {isDev, LOGIN_STATUS} from "@/config/constants";
+import {CHAIN_RPC_URL, isDev, LOGIN_STATUS} from "@/config/constants";
 import {createContext, useContext, useEffect, useState} from "react";
 import {
   ADAPTER_STATUS,
@@ -10,6 +10,7 @@ import {
 } from "@peppergaming/auth";
 
 import {Provider} from "@ethersproject/abstract-provider";
+import {ethers} from "ethers";
 
 export type OauthStatus = "none" | "pending" | "success";
 
@@ -66,6 +67,12 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
 
   const initialize = async (isMobile = false) => {
     setIsLoading(true);
+    const provider = new ethers.providers.JsonRpcProvider(
+      CHAIN_RPC_URL,
+      {
+        chainId: 4, name: "Ankr Rinkeby RPC",
+      })
+    setProvider(provider);
 
     const eventSubscriber: EventSubscriber = {
       async onConnected(userInfo: UserInfo, pepperAccessToken?: string) {
@@ -134,7 +141,8 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
           loginToken || undefined
         );
         if (web3Provider) {
-          const pepperAccessToken = loginSdk.pepperAccessToken;
+          // const pepperAccessToken = loginSdk.pepperAccessToken;
+
         }
       } catch (e) {
         console.log(e);
