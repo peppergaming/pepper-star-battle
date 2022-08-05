@@ -34,7 +34,8 @@ export const Game = () => {
   }
 
   const handleReplay = () => {
-    setRoundActive(true);
+    // setRoundActive(true);
+    setGameOver(false);
     setVictory(false);
   }
 
