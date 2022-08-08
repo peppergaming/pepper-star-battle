@@ -4,13 +4,8 @@ import BulletController from "@/game/BulletController";
 import EnemyController from "@/game/EnemyController";
 import Player from "@/game/Player";
 import style from "./Game.module.scss";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import ReplayIcon from "@mui/icons-material/Replay";
-import Button from "@mui/material/Button";
 import { SelectShip } from "@/components/SelectShip";
-import Link from "@mui/material/Link";
-import { ShipModel } from "@/types/model";
+import { GameOver } from "@/components/Game/GameOver";
 
 let playerBulletController: any;
 let enemyBulletController: any;
@@ -24,7 +19,6 @@ export const Game = () => {
   const [victory, setVictory] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [selectedShip, setSelectedShip] = useState<any>(null);
-  const [claimed, setClaimed] = useState<boolean>(false);
 
   const handleGameOver = (victory: any) => {
     console.debug("Game is over with victory: ", victory);
@@ -52,7 +46,8 @@ export const Game = () => {
     );
 
   return gameOver ? (
-    <GameOver handleReplay={handleReplay} victory={victory} />
+    /* hasNft should return true/false if user already got from claim */
+    <GameOver handleReplay={handleReplay} hasNft={false} victory={victory} />
   ) : (
     <SelectShip handlePlay={handlePlay} />
   );
@@ -174,142 +169,6 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
   return (
     <div className={style.Game}>
       <Canvas ref={canvasRef} draw={draw} height={600} width={600} />
-    </div>
-  );
-};
-
-interface GameOverProps {
-  handleReplay: () => void;
-  victory: boolean;
-}
-
-interface NFTClaimedProps {
-  claimedNFT: ShipModel;
-}
-
-const claimNFT = () => {
-  let myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  let raw = JSON.stringify({
-    address: "0xB7F3dd94f56e5eAD150B22d5eECC16a44B680888",
-  });
-
-  let requestOptions = {
-    method: "POST",
-    headers: myHeaders,
-    body: raw,
-  };
-
-  fetch("https://demo.peppergaming.com/api/nfts/claim_demo_nft", requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => console.log("error", error));
-};
-
-export const GameOver = (
-  { victory, handleReplay }: GameOverProps,
-  claimed: any
-) => {
-  return (
-    <Stack alignItems={"center"} direction={"column"}>
-      <Stack
-        direction={"column"}
-        alignItems={"center"}
-        justifyContent={"flex-start"}
-        spacing={1}
-        mt={10}
-      >
-        <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>
-          {victory ? "Yeeeh" : "Nooo"}
-        </Typography>
-        <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
-          {victory ? "You Won" : "Game Over"}
-        </Typography>
-      </Stack>
-      {victory ? (
-        <Stack sx={{ textAlign: "center" }}>
-          <Typography
-            fontSize={16}
-            sx={{ color: "whitesmoke", marginTop: "0" }}
-          >
-            Click on claim to receive it in your wallet
-          </Typography>
-          <img
-            src={"/images/ship1.jpg"}
-            height={"180px"}
-            width={"180px"}
-            style={{ alignSelf: "center", marginTop: "2rem" }}
-          ></img>
-          <Stack mt={6} direction={"column"}>
-            <Button
-              size={"large"}
-              className={style.EmailButton}
-              fullWidth
-              variant={"contained"}
-              onClick={claimNFT}
-            >
-              Claim
-            </Button>
-            <Button
-              sx={{ color: "white", marginTop: "1rem" }}
-              endIcon={<ReplayIcon />}
-              onClick={handleReplay}
-            >
-              Replay
-            </Button>
-          </Stack>
-        </Stack>
-      ) : (
-        <Button
-          sx={{ color: "white", marginTop: "10rem" }}
-          endIcon={<ReplayIcon />}
-          onClick={handleReplay}
-        >
-          Replay
-        </Button>
-      )}
-    </Stack>
-  );
-};
-
-export const NFTClaimed = (
-  { claimedNFT }: NFTClaimedProps,
-  { handleReplay }: GameOverProps
-) => {
-  return (
-    <div className={style.SuccessPage}>
-      <Typography fontWeight={600} fontSize={16} sx={{ color: "gray" }}>
-        Yeeeeeeeh
-      </Typography>
-      <Typography mt={1} mb={1} fontSize={25} sx={{ color: "whitesmoke" }}>
-        You Won {claimedNFT.assetId}!
-      </Typography>
-      <Typography mt={1} mb={1} fontSize={16} sx={{ color: "whitesmoke" }}>
-        Claimed!
-      </Typography>
-      <Stack spacing={2}>
-        <img
-          src={claimedNFT.imgUrl}
-          height={"180px"}
-          width={"180px"}
-          style={{
-            alignSelf: "center",
-            marginTop: "2rem",
-            border: "2px solid gold",
-          }}
-        ></img>
-        <Link href={"https://etherscan.com"}>Check it on EtherScan</Link>
-        <Button
-          sx={{ color: "white", marginTop: "10rem" }}
-          endIcon={<ReplayIcon />}
-          onClick={handleReplay}
-        >
-          Replay
-        </Button>
-      </Stack>
     </div>
   );
 };
