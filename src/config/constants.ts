@@ -12,7 +12,7 @@ export interface IObjectKeys {
 }
 
 export const CHAIN_RPC_URL = "https://rpc.ankr.com/eth_rinkeby"
-export const PEPPER_SHIPS_CONTRACT_ADDRESS = "0x7E0be239358a083A9202d201Ce2b5aAd900fF668"
+export const PEPPER_SHIPS_CONTRACT_ADDRESS = "0x90A96FCa895860A945515c39d5945E854f17e95f"
 export const LOGIN_STATUS = {
     DISCONNECTED: {
         key: "DISCONNECTED",

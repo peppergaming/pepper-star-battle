@@ -28,6 +28,7 @@ export interface AuthConfigContextInterface {
   metaMaskLogin: () => Promise<void>;
   walletConnectLogin: () => Promise<void>;
   provider?: Provider;
+  signer?: PepperWallet;
   logout: () => Promise<void>;
 }
 
@@ -61,32 +62,21 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
   const [loginSdk, setLoginSdk] = useState<PepperLogin | null>(null);
 
   const [provider, setProvider] = useState<Provider>()
+  const [signer, setSigner] = useState<PepperWallet>()
 
   const [userInfo, setUserInfo] = useState<Partial<UserInfo>>()
 
 
   const initialize = async (isMobile = false) => {
     setIsLoading(true);
-    const provider = new ethers.providers.JsonRpcProvider(
-      CHAIN_RPC_URL,
-      {
-        chainId: 4, name: "Ankr Rinkeby RPC",
-      })
-    setProvider(provider);
 
     const eventSubscriber: EventSubscriber = {
-      async onConnected(userInfo: UserInfo, pepperAccessToken?: string) {
-        setUserInfo({
-          publicAddress: userInfo.publicAddress,
-          name: userInfo.name,
-          email: userInfo.email,
-          typeOfLogin: userInfo.typeOfLogin,
-          verifier: userInfo.verifier,
-          verifierId: userInfo.verifierId,
-        })
-
+      async onConnected(userInfo: UserInfo, provider: Provider, signer: PepperWallet) {
+        setUserInfo(userInfo)
         setIsPepperLogged(true);
         setLoginStatus(LOGIN_STATUS.CONNECTED);
+        setProvider(provider);
+        setSigner(signer);
         setIsLoading(false);
       },
       async onConnecting() {
@@ -96,7 +86,6 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
         setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
       },
       async onDisconnected() {
-        console.debug();
         setLoginStatus(LOGIN_STATUS.DISCONNECTED);
       },
       async onErrored(error: any) {
@@ -110,6 +99,7 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     };
 
     let options: PepperLoginOptions = {
+      chainConfig: {chainId: 4, name: "Ankr Rinkeby RPC", rpcTarget: CHAIN_RPC_URL},
       isDevelopment: isDev,
       isMobile: isMobile,
       logLevel: isDev ? "debug" : "info",
@@ -141,8 +131,7 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
           loginToken || undefined
         );
         if (web3Provider) {
-          // const pepperAccessToken = loginSdk.pepperAccessToken;
-
+          setProvider(web3Provider);
         }
       } catch (e) {
         console.log(e);
@@ -177,7 +166,8 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     await loginSdk?.logout();
     setIsPepperLogged(false);
     setLoginStatus(LOGIN_STATUS.DISCONNECTED);
-    setUserInfo(undefined)
+    setUserInfo(undefined);
+    setProvider(undefined);
     setIsLoading(false);
   };
 
@@ -192,6 +182,7 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     isPepperLogged,
     loginStatus,
     provider,
+    signer,
     socialLogin,
     refreshLogin,
     metaMaskLogin,
