@@ -1,11 +1,10 @@
 import isUrlFound from "../utils/checkUrl";
 
 export class ShipAttributes {
-  constructor(color, engine, shield, weapon) {
+  constructor(color, engine, shield) {
     this.color = color;
     this.engine = engine;
     this.shield = shield;
-    this.weapon = weapon;
   }
 }
 
@@ -18,7 +17,10 @@ export default class Ship {
   }
 
   async getImage() {
-    const { color, engine, shield } = this.attributes;
+    let color = this.attributes[0].value;
+    let engine = this.attributes[1].value;
+    let shield = this.attributes[2].value;
+
     let imageUrl =
       `/images/ships/${color}_${engine}_${shield}.png`.toLowerCase();
     const exist = await isUrlFound(imageUrl);
