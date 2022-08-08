@@ -4,6 +4,7 @@ import {AuthConfigProvider} from "@/services/auth";
 import {Page} from "@/types/page";
 import {ThemeProvider, useTheme} from "@mui/material";
 import Head from "next/head";
+import {GameConfigProvider} from "@/services/game";
 
 
 interface PepperStarGameProps extends AppProps {
@@ -18,11 +19,14 @@ function PepperStarBattle(props: PepperStarGameProps) {
   return <>
     <Head>
       <title>Pepper Star Battle</title>
-      <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+      <meta name="viewport"
+            content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
     </Head>
     <ThemeProvider theme={theme}>
       <AuthConfigProvider>
-        {getLayout(<Component {...pageProps} />)}
+        <GameConfigProvider>
+          {getLayout(<Component {...pageProps} />)}
+        </GameConfigProvider>
       </AuthConfigProvider>
     </ThemeProvider>
   </>
