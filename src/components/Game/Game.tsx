@@ -188,14 +188,14 @@ interface NFTClaimedProps {
 }
 
 const claimNFT = () => {
-  var myHeaders = new Headers();
+  let myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
-  var raw = JSON.stringify({
+  let raw = JSON.stringify({
     address: "0xB7F3dd94f56e5eAD150B22d5eECC16a44B680888",
   });
 
-  var requestOptions = {
+  let requestOptions = {
     method: "POST",
     headers: myHeaders,
     body: raw,
