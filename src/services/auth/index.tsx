@@ -10,9 +10,7 @@ import {
 } from "@peppergaming/auth";
 
 import {Provider} from "@ethersproject/abstract-provider";
-import {ethers} from "ethers";
 
-export type OauthStatus = "none" | "pending" | "success";
 
 export interface AuthConfigContextInterface {
   userInfo?: Partial<UserInfo>;
