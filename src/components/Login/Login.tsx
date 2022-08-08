@@ -15,7 +15,6 @@ import {useRouter} from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
 import useStorage from "../../utils/storage";
-import {useModalContext} from "@/services/modal";
 
 export interface ErrorViewProps {
     message?: string;
@@ -42,9 +41,6 @@ export const Login = () => {
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const {
-        isOauth,
-        oauthStatus,
-        setOauthStatus,
         isPepperLogged,
         isLoading: isAuthConfigLoading,
         socialLogin,
@@ -56,8 +52,6 @@ export const Login = () => {
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
-
-    const {hideModal, isModalVisible} = useModalContext();
 
     const triggerLogin = async (provider: any, hint?: string) => {
         setIsAuthorizing(true);
@@ -92,50 +86,22 @@ export const Login = () => {
 
     const triggerLoginRefresh = async (token: string) => {
         const signer = await refreshLogin(token);
-        if (signer) {
-            setOauthStatus("success");
-            storage.removeItem(PEPPER_OAUTH_TOKEN_KEY);
-        }
         setIsAuthorizing(false);
         setIsLoading(false);
     };
 
-    useEffect(() => {
-        if (isAuthorized && isModalVisible) {
-            hideModal();
-        }
-    }, [isModalVisible, isAuthorized]);
-
-    useEffect(() => {
-        if (isOauth && router) {
-            const token = router.query.token;
-            if (typeof token === "string") {
-                setLoginToken(token);
-                storage.setItem(PEPPER_OAUTH_TOKEN_KEY, token);
-                setOauthStatus("pending");
-                return () => {
-                    setOauthStatus("none");
-                    storage.removeItem(PEPPER_OAUTH_TOKEN_KEY);
-                };
-            } else {
-                setError("Invalid Token");
-            }
-        }
-    }, [isOauth, router]);
 
     useEffect(() => {
         if (
             !isAuthConfigLoading &&
             isPepperLogged &&
-            isOauth &&
-            oauthStatus === "pending" &&
             loginToken
         ) {
             console.debug("Oauth pending, refreshing login");
             setIsAuthorizing(true);
             triggerLoginRefresh(loginToken);
         }
-    }, [isOauth, oauthStatus, loginToken, isAuthConfigLoading]);
+    }, [loginToken, isAuthConfigLoading]);
 
     useEffect(() => {
         if (!isAuthConfigLoading && isLoading) {
@@ -145,11 +111,6 @@ export const Login = () => {
         }
     }, [isAuthConfigLoading]);
 
-    useEffect(() => {
-        if (isOauth && oauthStatus === "success") {
-            setIsAuthorized(true);
-        }
-    }, [isOauth, oauthStatus]);
 
     if (error) {
         return <ErrorView message={error}/>;
@@ -160,7 +121,6 @@ export const Login = () => {
     ) : (
         <LoginFormView
             isPepperLogged={isPepperLogged}
-            isAuthorized={isAuthorized}
             onEmailChange={handleEmailChange}
             loginWithEmail={loginWithEmail}
             loginWithGoogle={loginWithGoogle}
