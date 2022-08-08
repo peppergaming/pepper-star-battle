@@ -34,35 +34,31 @@ export interface LoginFormViewProps {
 }
 
 export const Login = () => {
-    const router = useRouter();
     const [email, setEmail] = useState<string | null>(null);
-    const [loginToken, setLoginToken] = useState<string | null | undefined>(null);
     const [isAuthorizing, setIsAuthorizing] = useState<boolean>(false);
-    const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const {
         isPepperLogged,
         isLoading: isAuthConfigLoading,
         socialLogin,
-        refreshLogin,
     } = useAuthConfig();
 
     const [isLoading, setIsLoading] = useState<boolean>(isAuthConfigLoading);
-    const storage = useStorage();
     const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     };
 
     const triggerLogin = async (provider: any, hint?: string) => {
         setIsAuthorizing(true);
-        const web3Provider = await socialLogin(
-            provider,
-            hint,
-            loginToken || undefined
-        );
-        if (web3Provider) {
-            setIsAuthorized(true);
+        try{
+            await socialLogin(
+              provider,
+              hint
+            );
+        }catch (e) {
+            setError(e as string)
         }
+
         setIsAuthorizing(false);
     };
 
@@ -83,25 +79,6 @@ export const Login = () => {
     const loginWithDiscord = async () => {
         await triggerLogin("discord");
     };
-
-    const triggerLoginRefresh = async (token: string) => {
-        const signer = await refreshLogin(token);
-        setIsAuthorizing(false);
-        setIsLoading(false);
-    };
-
-
-    useEffect(() => {
-        if (
-            !isAuthConfigLoading &&
-            isPepperLogged &&
-            loginToken
-        ) {
-            console.debug("Oauth pending, refreshing login");
-            setIsAuthorizing(true);
-            triggerLoginRefresh(loginToken);
-        }
-    }, [loginToken, isAuthConfigLoading]);
 
     useEffect(() => {
         if (!isAuthConfigLoading && isLoading) {
