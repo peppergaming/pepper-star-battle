@@ -12,39 +12,7 @@ import {JsonRpcProvider} from "@ethersproject/providers";
 import {PEPPER_SHIPS_CONTRACT_ADDRESS} from "@/config/constants";
 
 export const Header = () => {
-  const {userInfo, isPepperLogged, provider} = useAuthConfig();
-
-  const testProvider = async () => {
-    if (provider) {
-      const prov = (provider as JsonRpcProvider);
-      const accounts = await prov.listAccounts();
-      console.debug("accounts: ", accounts)
-
-      const contract = new ethers.Contract(
-        PEPPER_SHIPS_CONTRACT_ADDRESS,
-        ContractAbi,
-        prov,
-      )
-      const balance = await contract.balanceOf(userInfo?.publicAddress);
-      console.debug("balance: ", balance);
-
-      const userTokens = await contract.walletOfOwner(userInfo?.publicAddress)
-      console.debug("user tokens: ")
-      for (const nft of userTokens) {
-        let tokenID = nft.toNumber();
-
-        const tokenURI = await contract.tokenURI(tokenID)
-        console.debug(`> ${tokenID}:  `, tokenURI)
-
-        console.debug()
-      }
-    }
-  }
-  useEffect(() => {
-    if(userInfo){
-      testProvider();
-    }
-  }, [userInfo])
+  const {userInfo, isPepperLogged} = useAuthConfig();
 
   return (
     <AppBar
