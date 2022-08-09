@@ -6,7 +6,7 @@ import Link from "@mui/material/Link";
 import React, {useState} from "react";
 import {useAuthConfig} from "@/services/auth";
 import Ship from "@/game/Ship";
-import {DEFAULT_SHIP} from "@/config/constants";
+import {DEFAULT_SHIP, ETHERSCAN_URL} from "@/config/constants";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -18,6 +18,7 @@ export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
   const [claimed, setClaimed] = useState(false);
   /* Change default ship with Ship read onchain #8 */
   const [NFT, setNFT] = useState<Ship>(DEFAULT_SHIP);
+  const [transactionId, setTransactionId] = useState<string>();
   const {userInfo} = useAuthConfig();
 
   const claimNFT = () => {
@@ -48,7 +49,7 @@ export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
         }, {})
 
         const ship = new Ship(tokenData.name, tokenData.edition, tokenData.image_url, attributes);
-
+        setTransactionId(tokenData.transaction_id)
         setNFT(ship);
         setClaimed(true);
       })
@@ -82,7 +83,7 @@ export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
   }
 
   return claimed ? (
-    <ClaimedSuccess NFT={NFT} handleReplay={handleReplay}/>
+    <ClaimedSuccess NFT={NFT} handleReplay={handleReplay} transactionId={transactionId}/>
   ) : (
     <Claim claimNFT={claimNFT} handleReplay={handleReplay}/>
   );
@@ -128,7 +129,7 @@ const Claim = ({claimNFT, handleReplay}) => {
   </Stack>
 }
 
-const ClaimedSuccess = ({NFT, handleReplay}) => {
+const ClaimedSuccess = ({NFT, handleReplay, transactionId}) => {
   return <Stack alignItems={"center"} direction={"column"}>
     <Stack
       direction={"column"}
@@ -159,7 +160,7 @@ const ClaimedSuccess = ({NFT, handleReplay}) => {
           border: "2px solid gold",
         }}
       />
-      <Link href={"https://etherscan.com"}>Check it on EtherScan</Link>
+      <Link href={`${ETHERSCAN_URL}/tx/${transactionId}`}>Check it on EtherScan</Link>
       <Button
         sx={{color: "white", marginTop: "10rem"}}
         endIcon={<ReplayIcon/>}
