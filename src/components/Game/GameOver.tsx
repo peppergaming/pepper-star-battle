@@ -1,10 +1,9 @@
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import style from "@/components/Game/Game.module.scss";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Link from "@mui/material/Link";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {useAuthConfig} from "@/services/auth";
 import Ship from "@/game/Ship";
 import {DEFAULT_SHIP} from "@/config/constants";
@@ -15,11 +14,12 @@ interface GameOverProps {
   hasNft: boolean;
 }
 
-export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
+export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
   const [claimed, setClaimed] = useState(hasNft);
   /* Change default ship with Ship read onchain #8 */
   const [NFT, setNFT] = useState<Ship>(DEFAULT_SHIP);
   const {userInfo} = useAuthConfig();
+
   const claimNFT = () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -55,7 +55,7 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
     }
   };
 
-  return claimed ? (
+  return claimed && victory ? (
     <Stack alignItems={"center"} direction={"column"}>
       <Stack
         direction={"column"}
@@ -88,8 +88,8 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
         />
         <Link href={"https://etherscan.com"}>Check it on EtherScan</Link>
         <Button
-          sx={{ color: "white", marginTop: "10rem" }}
-          endIcon={<ReplayIcon />}
+          sx={{color: "white", marginTop: "10rem"}}
+          endIcon={<ReplayIcon/>}
           onClick={handleReplay}
         >
           Replay
@@ -113,10 +113,10 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
         </Typography>
       </Stack>
       {victory ? (
-        <Stack sx={{ textAlign: "center" }}>
+        <Stack sx={{textAlign: "center"}}>
           <Typography
             fontSize={16}
-            sx={{ color: "whitesmoke", marginTop: "0" }}
+            sx={{color: "whitesmoke", marginTop: "0"}}
           >
             Click on claim to receive it in your wallet
           </Typography>
@@ -125,7 +125,7 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
             src={"/images/ship1.jpg"}
             height={"180px"}
             width={"180px"}
-            style={{ alignSelf: "center", marginTop: "2rem" }}
+            style={{alignSelf: "center", marginTop: "2rem"}}
           />
           <Stack mt={6} direction={"column"}>
             <Button
@@ -137,8 +137,8 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
               Claim
             </Button>
             <Button
-              sx={{ color: "white", marginTop: "1rem" }}
-              endIcon={<ReplayIcon />}
+              sx={{color: "white", marginTop: "1rem"}}
+              endIcon={<ReplayIcon/>}
               onClick={handleReplay}
             >
               Replay
@@ -147,8 +147,8 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
         </Stack>
       ) : (
         <Button
-          sx={{ color: "white", marginTop: "10rem" }}
-          endIcon={<ReplayIcon />}
+          sx={{color: "white", marginTop: "10rem"}}
+          endIcon={<ReplayIcon/>}
           onClick={handleReplay}
         >
           Replay
