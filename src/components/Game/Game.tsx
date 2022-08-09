@@ -18,12 +18,11 @@ let didWin = false;
 
 export const Game = () => {
   const [roundActive, setRoundActive] = useState<boolean>(false);
-  const [victory, setVictory] = useState<boolean>(false);
-  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [victory, setVictory] = useState<boolean>(true);
+  const [gameOver, setGameOver] = useState<boolean>(true);
   const {ships} = useGameConfig()
   const {selectedShip, selectShip} = useGameConfig()
   const handleGameOver = (victory: any) => {
-    console.debug("Game is over with victory: ", victory);
     setVictory(victory);
     setRoundActive(false);
     setGameOver(true);
@@ -48,7 +47,7 @@ export const Game = () => {
 
   return gameOver ? (
     /* hasNft should return true/false if user already got from claim */
-    <GameOver handleReplay={handleReplay} hasNft={ships && ships.length > 0} victory={victory}/>
+    <GameOver handleReplay={handleReplay} hasNft={false} victory={victory}/>
   ) : (
     <SelectShip handlePlay={handlePlay}/>
   );

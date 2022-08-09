@@ -65,7 +65,7 @@ export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
         mt={10}
       >
         <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>
-          {victory ? "Yeeeh" : "Nooo"}
+          {victory ? "WAGMI" : "NGMI"}
         </Typography>
         <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
           {victory ? "You Won" : "Game Over"}
@@ -102,7 +102,7 @@ const Claim = ({claimNFT, handleReplay}) => {
       </Typography>
       <img
         alt={"default_ship"}
-        src={"/images/ship1.jpg"}
+        src={"/images/claim_placeholder.png"}
         height={"180px"}
         width={"180px"}
         style={{alignSelf: "center", marginTop: "2rem"}}
