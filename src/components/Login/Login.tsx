@@ -9,12 +9,9 @@ import GoogleIcon from "../../assets/icons/GoogleIcon";
 import TwitchIcon from "../../assets/icons/TwitchIcon";
 import DiscordIcon from "../../assets/icons/DiscordIcon";
 import IconButton from "@mui/material/IconButton";
-import {PEPPER_OAUTH_TOKEN_KEY} from "@/config/constants";
 import {useAuthConfig} from "@/services/auth";
-import {useRouter} from "next/router";
 import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
-import useStorage from "../../utils/storage";
 
 export interface ErrorViewProps {
     message?: string;
