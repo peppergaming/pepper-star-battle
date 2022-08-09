@@ -1,6 +1,8 @@
 /**
  * Keys
  */
+import Ship from "@/game/Ship";
+
 export const isDev = process.env.NODE_ENV === "development";
 export const PEPPER_OAUTH_TOKEN_KEY = "PEPPER_OAUTH_TOKEN_KEY";
 
@@ -38,3 +40,8 @@ export const LOGIN_STATUS = {
         message: "CONNECTED",
     },
 };
+
+export const DEFAULT_SHIP = new Ship("default", -1, "/images/ships/default.png", {
+    color: "red",
+    engine: "turbo"
+});

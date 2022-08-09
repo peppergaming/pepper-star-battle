@@ -5,10 +5,10 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import { ShipModel } from "@/types/model";
+import Ship from "@/game/Ship";
 
 interface ShipCardProps {
-  shipModel: ShipModel;
+  shipModel: Ship;
   setSelectedId: (key: string) => void;
   selectedId: string;
 }
@@ -34,7 +34,7 @@ export const ShipCard = ({
     <Card className={className} elevation={0}>
       <CardActionArea onClick={handleClick}>
         <Stack direction={"column"} className={style.AssetCardContent}>
-          <CardMedia className={style.Media} image={shipModel.image_url} />
+          <CardMedia className={style.Media} image={shipModel.getNFTImage()} />
         </Stack>
         {shipModel.name && (
           <Stack direction={"column"}>

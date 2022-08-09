@@ -159,7 +159,7 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
         {name: "engine", value: "high"},
         {name: "shield", value: "deflector"},
       ]);
-      const gameImage = await shipPlayer.getImage();
+      const gameImage = await shipPlayer.getGameImage();
       player = new Player(canvas, 3, playerBulletController, gameImage);
 
       const gameInterval = setInterval(game, 1000 / 60);

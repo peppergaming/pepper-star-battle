@@ -1,4 +1,4 @@
-import Ship, {ShipAttributes} from "@/game/Ship"
+import Ship from "@/game/Ship"
 import {createContext, useContext, useEffect, useState} from "react";
 import {useAuthConfig} from "@/services/auth";
 import {Contract} from "@ethersproject/contracts";

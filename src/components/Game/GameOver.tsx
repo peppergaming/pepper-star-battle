@@ -1,4 +1,3 @@
-import { AttributeModel, ShipModel } from "@/types/model";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -6,8 +5,9 @@ import style from "@/components/Game/Game.module.scss";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
-import { defaultShip } from "@/components/SelectShip/SelectShip";
 import {useAuthConfig} from "@/services/auth";
+import Ship from "@/game/Ship";
+import {DEFAULT_SHIP} from "@/config/constants";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -18,7 +18,7 @@ interface GameOverProps {
 export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
   const [claimed, setClaimed] = useState(hasNft);
   /* Change default ship with Ship read onchain #8 */
-  const [NFT, setNFT] = useState<ShipModel>(defaultShip);
+  const [NFT, setNFT] = useState<Ship>(DEFAULT_SHIP);
   const {userInfo} = useAuthConfig();
   const claimNFT = () => {
     let myHeaders = new Headers();
@@ -76,7 +76,7 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
       </Stack>
       <Stack spacing={2}>
         <img
-          src={checkIpfs(NFT.image_url)}
+          src={checkIpfs(NFT.getNFTImage())}
           height={"180px"}
           width={"180px"}
           alt={"claimed_ship"}
