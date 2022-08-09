@@ -3,17 +3,18 @@ export default class Player {
   leftPressed = false;
   shootPressed = false;
 
-  constructor(canvas, velocity, bulletController) {
+  constructor(canvas, velocity, bulletController, shipImage) {
     this.canvas = canvas;
     this.velocity = velocity;
     this.bulletController = bulletController;
+    this.ship = ship;
 
     this.x = this.canvas.width / 2;
     this.y = this.canvas.height - 75;
     this.width = 80;
     this.height = 80;
     this.image = new Image();
-    this.image.src = "/images/player.png";
+    this.image.src = shipImage;
 
     document.addEventListener("keydown", this.keydown);
     document.addEventListener("keyup", this.keyup);

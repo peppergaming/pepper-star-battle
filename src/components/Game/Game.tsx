@@ -3,7 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import BulletController from "@/game/BulletController";
 import EnemyController from "@/game/EnemyController";
 import Player from "@/game/Player";
+import Ship from "@/game/Ship";
 import style from "./Game.module.scss";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
+import ReplayIcon from "@mui/icons-material/Replay";
+import Button from "@mui/material/Button";
 import { SelectShip } from "@/components/SelectShip";
 import { GameOver } from "@/components/Game/GameOver";
 import {useGameConfig} from "@/services/game";
@@ -137,7 +142,7 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
     }
   };
 
-  const initialize = () => {
+  const initialize = async () => {
     const canvas = canvasRef.current;
     if (canvas) {
       // const context = (canvas as HTMLCanvasElement).getContext("2d");
@@ -151,7 +156,15 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
         enemyBulletController,
         playerBulletController
       );
-      player = new Player(canvas, 3, playerBulletController);
+
+      /* TODO read ship from owned assets*/
+      let shipPlayer = new Ship("PepperShip #11", 22, "", [
+        { name: "color", value: "aqua" },
+        { name: "engine", value: "high" },
+        { name: "shield", value: "deflector" },
+      ]);
+      const gameImage = await shipPlayer.getImage();
+      player = new Player(canvas, 3, playerBulletController, gameImage);
 
       const gameInterval = setInterval(game, 1000 / 60);
       setInitialized(true);
