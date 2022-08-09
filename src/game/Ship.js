@@ -1,13 +1,5 @@
 import isUrlFound from "../utils/checkUrl";
 
-export class ShipAttributes {
-  constructor(color, engine, shield) {
-    this.color = color;
-    this.engine = engine;
-    this.shield = shield;
-  }
-}
-
 export default class Ship {
   constructor(name, edition, ipfsImageUrl, attributes) {
     this.name = name;
@@ -16,11 +8,18 @@ export default class Ship {
     this.attributes = attributes;
   }
 
-  async getImage() {
-    let color = this.attributes[0].value;
-    let engine = this.attributes[1].value;
-    let shield = this.attributes[2].value;
 
+  getNFTImage(){
+    let ipfsImageUrl = this.ipfsImageUrl;
+    if (ipfsImageUrl.includes("ipfs")) {
+      return ipfsImageUrl.replace("ipfs://", "https://ipfs.io/ipfs/");
+    } else {
+      return ipfsImageUrl;
+    }
+  }
+
+  async getGameImage() {
+    const { color, engine, shield} = this.attributes
     let imageUrl =
       `/images/ships/${color}_${engine}_${shield}.png`.toLowerCase();
     const exist = await isUrlFound(imageUrl);
