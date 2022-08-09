@@ -3,10 +3,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Link from "@mui/material/Link";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuthConfig} from "@/services/auth";
 import Ship from "@/game/Ship";
 import {DEFAULT_SHIP, ETHERSCAN_URL} from "@/config/constants";
+import {useGameConfig} from "@/services/game";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -130,6 +131,11 @@ const Claim = ({claimNFT, handleReplay}) => {
 }
 
 const ClaimedSuccess = ({NFT, handleReplay, transactionId}) => {
+  const {refreshShips} = useGameConfig();
+
+  useEffect(() => {
+    refreshShips();
+  }, [])
   return <Stack alignItems={"center"} direction={"column"}>
     <Stack
       direction={"column"}
