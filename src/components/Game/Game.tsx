@@ -17,12 +17,11 @@ let isGameOver = false;
 let didWin = false;
 
 export const Game = () => {
-  const [roundActive, setRoundActive] = useState<boolean>(true);
+  const [roundActive, setRoundActive] = useState<boolean>(false);
   const [victory, setVictory] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
-  const [selectedShip, setSelectedShip] = useState<any>(null);
   const {ships} = useGameConfig()
-
+  const {selectedShip, selectShip} = useGameConfig()
   const handleGameOver = (victory: any) => {
     console.debug("Game is over with victory: ", victory);
     setVictory(victory);
@@ -38,8 +37,7 @@ export const Game = () => {
     setVictory(false);
   };
 
-  const handlePlay = (ship: any) => {
-    setSelectedShip(ship);
+  const handlePlay = () => {
     setRoundActive(true);
     setGameOver(false);
   };
@@ -58,7 +56,7 @@ export const Game = () => {
 };
 
 interface RoundProps {
-  selectedShip: any;
+  selectedShip: Ship;
   handleGameOver: (victory: boolean) => void;
 }
 
@@ -154,12 +152,8 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
       );
 
       /* TODO read ship from owned assets*/
-      let shipPlayer = new Ship("PepperShip #11", 22, "", [
-        {name: "color", value: "aqua"},
-        {name: "engine", value: "high"},
-        {name: "shield", value: "deflector"},
-      ]);
-      const gameImage = await shipPlayer.getGameImage();
+
+      const gameImage = await selectedShip.getGameImage();
       player = new Player(canvas, 3, playerBulletController, gameImage);
 
       const gameInterval = setInterval(game, 1000 / 60);

@@ -6,25 +6,24 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Ship from "@/game/Ship";
+import {useGameConfig} from "@/services/game";
 
 interface ShipCardProps {
   shipModel: Ship;
-  setSelectedId: (key: string) => void;
-  selectedId: string;
 }
 
 export const ShipCard = ({
   shipModel,
-  setSelectedId,
-  selectedId,
 }: ShipCardProps) => {
+  const {selectShip, selectedShip} = useGameConfig();
+
   const handleClick = () => {
-    setSelectedId(shipModel.name || "default");
+    selectShip(shipModel)
   };
 
   let className = "";
 
-  if (shipModel.name === selectedId) {
+  if (shipModel.name === selectedShip.name) {
     className = `${style.AssetCardActive}`;
   } else {
     className = `${style.AssetCard}`;

@@ -4,8 +4,9 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import {ShipsGrid} from "@/components/SelectShip/ShipsGrid";
-import React from "react";
+import React, {useEffect} from "react";
 import {DEFAULT_SHIP} from "@/config/constants";
+import {useGameConfig} from "@/services/game";
 
 interface SelectShipProps {
   handlePlay: (ship: any) => void;
@@ -13,6 +14,14 @@ interface SelectShipProps {
 
 export const SelectShip = ({handlePlay}: SelectShipProps) => {
   const [pepperShips, setPepperShips] = React.useState([DEFAULT_SHIP]);
+
+  const {ships} = useGameConfig();
+
+  useEffect(() => {
+    if (ships) {
+      setPepperShips([DEFAULT_SHIP, ...ships])
+    }
+  }, [ships])
 
 
   return (

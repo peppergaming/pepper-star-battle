@@ -2,6 +2,7 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import {ShipCard} from "@/components/SelectShip/ShipCard";
 import Ship from "@/game/Ship";
+import {useGameConfig} from "@/services/game";
 
 
 export interface ShipGridModel {
@@ -10,7 +11,6 @@ export interface ShipGridModel {
 
 export const ShipsGrid = ({assets}: ShipGridModel) => {
 
-  const [selectedId, setSelectedId] = React.useState("default");
   return (
     <Grid container columns={6} spacing={1}>
       {assets.map((asset: Ship, index: any) => (
@@ -19,8 +19,6 @@ export const ShipsGrid = ({assets}: ShipGridModel) => {
           key={`sff_game_${asset.edition}`}
         >
           <ShipCard
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
             key={index}
             shipModel={asset}
           />
