@@ -1,84 +1,87 @@
-import {Canvas} from "@/components/Canvas";
-import React, {useEffect, useRef, useState} from "react";
+import { Canvas } from "@/components/Canvas";
+import React, { useEffect, useRef, useState } from "react";
 import BulletController from "@/game/BulletController";
 import EnemyController from "@/game/EnemyController";
 import Player from "@/game/Player";
-import style from "./Game.module.scss"
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import ReplayIcon from '@mui/icons-material/Replay';
-import Button from "@mui/material/Button";
-import {SelectShip} from "@/components/SelectShip";
+import style from "./Game.module.scss";
+import { SelectShip } from "@/components/SelectShip";
+import { GameOver } from "@/components/Game/GameOver";
 
-let playerBulletController;
-let enemyBulletController;
-let enemyController;
-let player;
+let playerBulletController: any;
+let enemyBulletController: any;
+let enemyController: any;
+let player: any;
 let isGameOver = false;
 let didWin = false;
 
-
 export const Game = () => {
-  const [roundActive, setRoundActive] = useState<boolean>(true)
-  const [victory, setVictory] = useState<boolean>(false)
-  const [gameOver, setGameOver] = useState<boolean>(false)
-  const [selectedShip, setSelectedShip] = useState<any>(null)
+  const [roundActive, setRoundActive] = useState<boolean>(true);
+  const [victory, setVictory] = useState<boolean>(false);
+  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [selectedShip, setSelectedShip] = useState<any>(null);
 
-  const handleGameOver = (victory) => {
-    console.debug("Game is over with victory: ", victory)
-    setVictory(victory)
-    setRoundActive(false)
+  const handleGameOver = (victory: any) => {
+    console.debug("Game is over with victory: ", victory);
+    setVictory(victory);
+    setRoundActive(false);
     setGameOver(true);
     isGameOver = false;
     didWin = false;
-  }
+  };
 
   const handleReplay = () => {
     // setRoundActive(true);
     setGameOver(false);
     setVictory(false);
-  }
+  };
 
-  const handlePlay = (ship) => {
+  const handlePlay = (ship: any) => {
     setSelectedShip(ship);
     setRoundActive(true);
     setGameOver(false);
-  }
+  };
   if (roundActive && selectedShip)
-    return <Round selectedShip={selectedShip} handleGameOver={handleGameOver}/>
+    return (
+      <Round selectedShip={selectedShip} handleGameOver={handleGameOver} />
+    );
 
-  return gameOver ?  <GameOver handleReplay={handleReplay} victory={victory}/> : <SelectShip handlePlay={handlePlay}/>
+  return gameOver ? (
+    /* hasNft should return true/false if user already got from claim */
+    <GameOver handleReplay={handleReplay} hasNft={false} victory={victory} />
+  ) : (
+    <SelectShip handlePlay={handlePlay} />
+  );
   // return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
-}
+};
 
 interface RoundProps {
-  selectedShip: any
-  handleGameOver: (victory: boolean) => void
+  selectedShip: any;
+  handleGameOver: (victory: boolean) => void;
 }
 
-export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
+export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
   const getBackground = () => {
     const background = new Image();
     background.src = "/images/space.png";
-    return background
-  }
+    return background;
+  };
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [background, setBackground] = useState<HTMLImageElement>(getBackground)
+  const [background, setBackground] = useState<HTMLImageElement>(getBackground);
   const [initialized, setInitialized] = useState<boolean>(false);
 
   const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
     if (!background) {
-      setBackground(getBackground())
+      setBackground(getBackground());
     }
-  }
+  };
 
   const getCtx = () => {
     const canvas = canvasRef.current;
     if (canvas) {
       return (canvas as HTMLCanvasElement).getContext("2d");
     }
-    return null
-  }
+    return null;
+  };
 
   function displayGameOver() {
     if (isGameOver) {
@@ -108,10 +111,10 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
     }
 
     if (enemyController?.enemyRows.length === 0) {
-      didWin = true
+      didWin = true;
       isGameOver = true;
     }
-    return isGameOver
+    return isGameOver;
   };
 
   const game = () => {
@@ -149,37 +152,23 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
       player = new Player(canvas, 3, playerBulletController);
 
       const gameInterval = setInterval(game, 1000 / 60);
-      setInitialized(true)
+      setInitialized(true);
       return () => {
-        clearInterval(gameInterval)
-      }
+        clearInterval(gameInterval);
+      };
     }
-  }
+  };
 
   useEffect(() => {
     if (initialized) {
-      return
+      return;
     }
     initialize();
+  }, [canvasRef]);
 
-  }, [canvasRef])
-
-  return <div className={style.Game}><Canvas ref={canvasRef} draw={draw} height={600} width={600}/></div>
-}
-
-interface GameOverProps {
-  handleReplay: () => void
-  victory: boolean
-}
-
-export const GameOver = ({victory, handleReplay}: GameOverProps) => {
-  return <Stack alignItems={"center"} direction={"column"} spacing={12}>
-    <Stack direction={"column"} alignItems={"center"} justifyContent={"flex-start"} spacing={1} mt={20}>
-      <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>{victory ? "Yeeeh" : "Nooo"}</Typography>
-      <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>{victory ? "You Won" : "Game Over"}</Typography>
-    </Stack>
-    <Button sx={{color: "white"}} endIcon={<ReplayIcon/>} onClick={handleReplay}>
-      Replay
-    </Button>
-  </Stack>
-}
+  return (
+    <div className={style.Game}>
+      <Canvas ref={canvasRef} draw={draw} height={600} width={600} />
+    </div>
+  );
+};
