@@ -1,16 +1,12 @@
-import { Canvas } from "@/components/Canvas";
-import React, { useEffect, useRef, useState } from "react";
+import {Canvas} from "@/components/Canvas";
+import React, {useEffect, useRef, useState} from "react";
 import BulletController from "@/game/BulletController";
 import EnemyController from "@/game/EnemyController";
 import Player from "@/game/Player";
 import Ship from "@/game/Ship";
 import style from "./Game.module.scss";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import ReplayIcon from "@mui/icons-material/Replay";
-import Button from "@mui/material/Button";
-import { SelectShip } from "@/components/SelectShip";
-import { GameOver } from "@/components/Game/GameOver";
+import {SelectShip} from "@/components/SelectShip";
+import {GameOver} from "@/components/Game/GameOver";
 import {useGameConfig} from "@/services/game";
 
 let playerBulletController: any;
@@ -49,14 +45,14 @@ export const Game = () => {
   };
   if (roundActive && selectedShip)
     return (
-      <Round selectedShip={selectedShip} handleGameOver={handleGameOver} />
+      <Round selectedShip={selectedShip} handleGameOver={handleGameOver}/>
     );
 
   return gameOver ? (
     /* hasNft should return true/false if user already got from claim */
-    <GameOver handleReplay={handleReplay} hasNft={ships && ships.length>0} victory={victory} />
+    <GameOver handleReplay={handleReplay} hasNft={ships && ships.length > 0} victory={victory}/>
   ) : (
-    <SelectShip handlePlay={handlePlay} />
+    <SelectShip handlePlay={handlePlay}/>
   );
   // return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
 };
@@ -66,7 +62,7 @@ interface RoundProps {
   handleGameOver: (victory: boolean) => void;
 }
 
-export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
+export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
   const getBackground = () => {
     const background = new Image();
     background.src = "/images/space.png";
@@ -159,9 +155,9 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
 
       /* TODO read ship from owned assets*/
       let shipPlayer = new Ship("PepperShip #11", 22, "", [
-        { name: "color", value: "aqua" },
-        { name: "engine", value: "high" },
-        { name: "shield", value: "deflector" },
+        {name: "color", value: "aqua"},
+        {name: "engine", value: "high"},
+        {name: "shield", value: "deflector"},
       ]);
       const gameImage = await shipPlayer.getImage();
       player = new Player(canvas, 3, playerBulletController, gameImage);
@@ -183,7 +179,7 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
 
   return (
     <div className={style.Game}>
-      <Canvas ref={canvasRef} draw={draw} height={600} width={600} />
+      <Canvas ref={canvasRef} draw={draw} height={600} width={600}/>
     </div>
   );
 };
