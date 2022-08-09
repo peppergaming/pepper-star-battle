@@ -7,7 +7,7 @@ import ReplayIcon from "@mui/icons-material/Replay";
 import Link from "@mui/material/Link";
 import React, { useState } from "react";
 import { defaultShip } from "@/components/SelectShip/SelectShip";
-import { useAppSelector } from "@/store/hooks";
+import {useAuthConfig} from "@/services/auth";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -19,14 +19,13 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
   const [claimed, setClaimed] = useState(hasNft);
   /* Change default ship with Ship read onchain #8 */
   const [NFT, setNFT] = useState<ShipModel>(defaultShip);
-  const userWeb3Profile = useAppSelector((state) => state.auth.userWeb3Profile);
-
+  const {userInfo} = useAuthConfig();
   const claimNFT = () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     let raw = JSON.stringify({
-      address: userWeb3Profile.publicAddress,
+      address: userInfo?.publicAddress,
     });
 
     let requestOptions = {
@@ -131,7 +130,6 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
           <Stack mt={6} direction={"column"}>
             <Button
               size={"large"}
-              className={style.EmailButton}
               fullWidth
               variant={"contained"}
               onClick={claimNFT}

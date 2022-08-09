@@ -6,6 +6,7 @@ import Player from "@/game/Player";
 import style from "./Game.module.scss";
 import { SelectShip } from "@/components/SelectShip";
 import { GameOver } from "@/components/Game/GameOver";
+import {useGameConfig} from "@/services/game";
 
 let playerBulletController: any;
 let enemyBulletController: any;
@@ -19,6 +20,7 @@ export const Game = () => {
   const [victory, setVictory] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [selectedShip, setSelectedShip] = useState<any>(null);
+  const {ships} = useGameConfig()
 
   const handleGameOver = (victory: any) => {
     console.debug("Game is over with victory: ", victory);
@@ -47,7 +49,7 @@ export const Game = () => {
 
   return gameOver ? (
     /* hasNft should return true/false if user already got from claim */
-    <GameOver handleReplay={handleReplay} hasNft={false} victory={victory} />
+    <GameOver handleReplay={handleReplay} hasNft={ships && ships.length>0} victory={victory} />
   ) : (
     <SelectShip handlePlay={handlePlay} />
   );
