@@ -10,29 +10,11 @@ export interface CanvasProps {
 }
 
 
-const Canvas = forwardRef((props: CanvasProps, ref) => {
+const Canvas = forwardRef<any, any>((props: CanvasProps, ref) => {
   const {draw, options, ...rest} = props;
   useCanvas(draw, options, ref);
 
   return <canvas ref={ref} {...rest} />;
 });
-
-Canvas.defaultProps = {
-  draw: () => {
-  }
-};
-
-Canvas.propTypes = {
-  draw: PropTypes.func.isRequired,
-  options: PropTypes.shape({
-    context: PropTypes.oneOf([
-      "2d",
-      "webgl",
-      "experimental-webgl",
-      "webgl2",
-      "bitmaprenderer"
-    ])
-  })
-};
 
 export default Canvas;

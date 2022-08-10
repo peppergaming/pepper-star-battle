@@ -14,7 +14,7 @@ const updateCanvasSize = (canvas: HTMLCanvasElement, context: CanvasRenderingCon
   return false;
 };
 
-const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context: null}, canvasRef) => {
+const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context: null}, canvasRef: any) => {
   // const canvasRef = useRef(null);
 
   useEffect(() => {
