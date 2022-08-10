@@ -8,6 +8,7 @@ import { useAuthConfig } from "@/services/auth";
 import Ship from "@/game/Ship";
 import { DEFAULT_SHIP, ETHERSCAN_URL } from "@/config/constants";
 import { useGameConfig } from "@/services/game";
+import { CircularProgress } from "@mui/material";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -17,12 +18,12 @@ interface GameOverProps {
 
 export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
   const [claimed, setClaimed] = useState(false);
-  /* Change default ship with Ship read onchain #8 */
+  const [isLoading, setLoading] = useState(false);
   const [NFT, setNFT] = useState<Ship>(DEFAULT_SHIP);
   const [transactionId, setTransactionId] = useState<string>();
   const { userInfo } = useAuthConfig();
 
-  const claimNFT = () => {
+  const claimNFT = async () => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -36,33 +37,32 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
       body: raw,
     };
 
-    fetch(
+    setLoading(true);
+
+    const response = await fetch(
       "https://demo.peppergaming.com/api/nfts/claim_demo_nft",
       requestOptions
-    )
-      .then((response) => response.text())
-      .then((result) => {
-        const tokenData = JSON.parse(result)[0];
-        console.debug(tokenData);
-        const attributes = tokenData?.attributes.reduce(
-          (map: any, obj: any) => {
-            map[obj.type.toLowerCase()] = obj.value.toLowerCase();
-            return map;
-          },
-          {}
-        );
+    );
 
-        const ship = new Ship(
-          tokenData.name,
-          tokenData.edition,
-          tokenData.image_url,
-          attributes
-        );
-        setTransactionId(tokenData.transaction_id);
-        setNFT(ship);
-        setClaimed(true);
-      })
-      .catch((error) => console.log("error", error));
+    const json = await response.json();
+
+    if (json.attributes != null) {
+      const attributes = json?.attributes.reduce((map: any, obj: any) => {
+        map[obj.type.toLowerCase()] = obj.value.toLowerCase();
+        return map;
+      }, {});
+
+      const ship = new Ship(
+        json.name,
+        json.edition,
+        json.image_url,
+        attributes
+      );
+      setTransactionId(json.transactions[0].hex);
+      setNFT(ship);
+      setLoading(false);
+      setClaimed(true);
+    }
   };
 
   if (hasNft || !victory) {
@@ -100,16 +100,21 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
       transactionId={transactionId}
     />
   ) : (
-    <Claim claimNFT={claimNFT} handleReplay={handleReplay} />
+    <Claim
+      claimNFT={claimNFT}
+      isLoading={isLoading}
+      handleReplay={handleReplay}
+    />
   );
 };
 
 interface ClaimProps {
   claimNFT: () => void;
   handleReplay: () => void;
+  isLoading: boolean;
 }
 
-const Claim = ({ claimNFT, handleReplay }: ClaimProps) => {
+const Claim = ({ claimNFT, handleReplay, isLoading }: ClaimProps) => {
   return (
     <Stack mt={10} alignItems={"center"} direction={"column"}>
       <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
@@ -117,7 +122,9 @@ const Claim = ({ claimNFT, handleReplay }: ClaimProps) => {
       </Typography>
       <Stack sx={{ textAlign: "center" }}>
         <Typography fontSize={16} sx={{ color: "whitesmoke", marginTop: "0" }}>
-          Click on claim to receive a new NFT Ship!
+          {!isLoading
+            ? "Click on claim to receive a new NFT Ship!"
+            : "Getting your nft..."}
         </Typography>
         <img
           alt={"default_ship"}
@@ -133,7 +140,9 @@ const Claim = ({ claimNFT, handleReplay }: ClaimProps) => {
             variant={"contained"}
             onClick={claimNFT}
           >
-            Claim
+            <span style={{ color: "white" }}>
+              {isLoading ? <CircularProgress /> : "Claim"}
+            </span>
           </Button>
           <Button
             sx={{ color: "white", marginTop: "1rem" }}
