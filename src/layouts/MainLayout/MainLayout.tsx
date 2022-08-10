@@ -4,15 +4,11 @@ import {useTheme} from "@mui/material";
 import {Header} from "@/components/Header/Header";
 
 export const MainLayout = ({children}: any) => {
-    const theme = useTheme();
-    const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
 
     return (
         <div className={style.MainLayout}>
             <Header
                 className={style.Header}
-                theme={theme}
-                isLargeScreen={isLargeScreen}
             />
             <div className={style.Main}>
                 <div className={style.MainWrapper}>
