@@ -1,7 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import { palette_secondary, palette_primary, palette_grey } from "./palettes";
 import React from "react";
-import setKeepAlive = chrome.socket.setKeepAlive;
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -85,6 +84,7 @@ const theme = createTheme({
         },
       },
     },
+
     MuiTextField: {
       variants: [
         {
@@ -110,6 +110,83 @@ const theme = createTheme({
                 borderColor: "rgba(255,255,255,.3)",
               },
               background: palette_grey["600"],
+            },
+          },
+        },
+      ],
+    },
+
+    MuiButtonBase: {
+      defaultProps: {
+        disableTouchRipple: true,
+      },
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        sizeLarge: {
+          padding: "0.875rem 1rem",
+          fontSize: "1rem",
+          lineHeight: 1.3125,
+          letterSpacing: 0,
+        },
+        sizeSmall: {
+          padding: "4px 8px",
+          marginLeft: "-8px",
+        },
+        containedPrimary: {
+          backgroundColor: palette_primary.main,
+          color: "#fff",
+        },
+      },
+      variants: [
+        {
+          props: {
+            // "variant": "code" --> Not allowed in interface
+            variant: "contained",
+          },
+          style: {
+            color: palette_primary.contrastText,
+            border: "1px solid",
+            borderColor: palette_primary["400"],
+            backgroundColor: palette_primary.main,
+            fontSize: "0.8125rem",
+            lineHeight: 1.5,
+            letterSpacing: 0,
+            WebkitFontSmoothing: "subpixel-antialiased",
+            "&:hover, &.Mui-focusVisible": {
+              borderColor: palette_primary["300"],
+              backgroundColor: palette_primary["500"],
+              // "& .MuiButton-endIcon": {
+              //   color: "#66B2FF",
+              // },
+            },
+            // "& .MuiButton-startIcon": {
+            //   color: "#B2BAC2",
+            // },
+            // "& .MuiButton-endIcon": {
+            //   display: "inline-block",
+            //   position: "absolute",
+            //   right: 0,
+            //   marginRight: 10,
+            //   color: "#B2BAC2",
+            // },
+          },
+        },
+        {
+          props: {
+            // "variant": "link"  --> Not allowed in interface
+            variant: "text",
+          },
+          style: {
+            fontSize: "0.875rem",
+            fontWeight: 700,
+            color: palette_primary.light,
+            mb: 1,
+            "& svg": {
+              ml: -0.5,
             },
           },
         },
