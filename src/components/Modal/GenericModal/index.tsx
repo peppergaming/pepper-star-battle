@@ -1,1 +1,0 @@
-export { GenericModal } from "./GenericModal";

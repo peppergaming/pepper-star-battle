@@ -9,7 +9,7 @@ import ContractAbi from "@/assets/web3/contract_abi.json";
 export interface GameConfigContextInterface {
   ships: Ship[]
   selectedShip: Ship
-  selectShip: (Ship) => void
+  selectShip: (ship: Ship) => void
   refreshShips: () => Promise<void>
 }
 

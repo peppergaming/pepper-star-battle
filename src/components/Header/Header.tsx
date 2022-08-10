@@ -6,8 +6,11 @@ import Stack from "@mui/material/Stack";
 import Link from '@mui/material/Link';
 import {UserWidget} from "./UserWidget";
 import {useAuthConfig} from "@/services/auth";
+interface HeaderProps{
+  className?: string
+}
 
-export const Header = () => {
+export const Header = (props: HeaderProps) => {
   const {userInfo, isPepperLogged} = useAuthConfig();
 
   return (
