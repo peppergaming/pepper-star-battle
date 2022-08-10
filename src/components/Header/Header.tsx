@@ -3,15 +3,15 @@ import Toolbar from "@mui/material/Toolbar";
 import style from "./Header.module.scss";
 import AppBar from "@mui/material/AppBar";
 import Stack from "@mui/material/Stack";
-import Link from '@mui/material/Link';
-import {UserWidget} from "./UserWidget";
-import {useAuthConfig} from "@/services/auth";
-interface HeaderProps{
-  className?: string
+import Link from "@mui/material/Link";
+import { UserWidget } from "./UserWidget";
+import { useAuthConfig } from "@/services/auth";
+interface HeaderProps {
+  className?: string;
 }
 
 export const Header = (props: HeaderProps) => {
-  const {userInfo, isPepperLogged} = useAuthConfig();
+  const { userInfo, isPepperLogged } = useAuthConfig();
 
   return (
     <AppBar
@@ -21,9 +21,13 @@ export const Header = (props: HeaderProps) => {
       color="inherit"
       className={style.Header}
     >
-      <Toolbar sx={{minHeight: "auto!important", height: "100%!important"}}>
+      <Toolbar sx={{ minHeight: "auto!important", height: "100%!important" }}>
         <div className={style.LeftBox}>
-          <img src={"/images/logo_white.png"} alt={"Pepper logo"} style={{width: "100px"}}/>
+          <img
+            src={"/images/logo_white.png"}
+            alt={"Pepper logo"}
+            style={{ width: "100px" }}
+          />
           <Stack direction={"row"} spacing={3} ml={5}>
             <Link href="https://peppergaming.com" target="_blank">
               Website
@@ -37,9 +41,7 @@ export const Header = (props: HeaderProps) => {
           </Stack>
         </div>
         <div>
-          {isPepperLogged && userInfo && (
-            <UserWidget user={userInfo}/>
-          )}
+          {isPepperLogged && userInfo && <UserWidget user={userInfo} />}
         </div>
       </Toolbar>
     </AppBar>

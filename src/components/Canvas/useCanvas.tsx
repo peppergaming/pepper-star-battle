@@ -1,10 +1,13 @@
-import {useRef, useEffect} from "react";
+import { useRef, useEffect } from "react";
 
-const updateCanvasSize = (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => {
-  const {width, height} = canvas.getBoundingClientRect();
+const updateCanvasSize = (
+  canvas: HTMLCanvasElement,
+  context: CanvasRenderingContext2D
+) => {
+  const { width, height } = canvas.getBoundingClientRect();
 
   if (canvas.width !== width || canvas.height !== height) {
-    const {devicePixelRatio: ratio = 1} = window;
+    const { devicePixelRatio: ratio = 1 } = window;
     canvas.width = width * ratio;
     canvas.height = height * ratio;
     context.scale(ratio, ratio);
@@ -14,13 +17,19 @@ const updateCanvasSize = (canvas: HTMLCanvasElement, context: CanvasRenderingCon
   return false;
 };
 
-const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context: null}, canvasRef: any) => {
+const useCanvas = (
+  draw: (ctx: any, frameCount: any) => any,
+  options = { context: null },
+  canvasRef: any
+) => {
   // const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
-      const context = (canvas as HTMLCanvasElement).getContext(options.context || "2d");
+      const context = (canvas as HTMLCanvasElement).getContext(
+        options.context || "2d"
+      );
       let frameCount = 0;
       let animationFrameId: number;
       if (context) {
@@ -36,7 +45,6 @@ const useCanvas = (draw: (ctx: any, frameCount: any) => any, options = {context:
           window.cancelAnimationFrame(animationFrameId);
         };
       }
-
     }
   }, [draw]);
 

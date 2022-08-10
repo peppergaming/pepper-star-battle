@@ -35,7 +35,7 @@
     max-height: calc(100vh - #{$headerHeight});
 
     //TODO: Remove with proper theming colors
-    background-color: #1C0D28;
+    background-color: #1c0d28;
 
     .MainWrapper {
       width: $monitorSize;
@@ -46,7 +46,6 @@
         padding: 4rem;
       }
     }
-
 
     .MonitorFrame {
       content: " ";
@@ -70,7 +69,5 @@
       bottom: 0;
       background-color: transparent;
     }
-
   }
-
 }

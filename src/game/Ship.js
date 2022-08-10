@@ -13,8 +13,7 @@ export default class Ship {
     this.attributes = attributes;
   }
 
-
-  getNFTImage(){
+  getNFTImage() {
     let ipfsImageUrl = this.ipfsImageUrl;
     if (ipfsImageUrl.includes("ipfs")) {
       return ipfsImageUrl.replace("ipfs://", "https://ipfs.io/ipfs/");
@@ -24,11 +23,11 @@ export default class Ship {
   }
 
   async getGameImage() {
-    if(this.name === "default"){
+    if (this.name === "default") {
       return "/images/ships/default.png";
     }
 
-    const { color, engine, shield} = this.attributes
+    const { color, engine, shield } = this.attributes;
     let imageUrl =
       `/images/ships/${color}_${engine}_${shield}.png`.toLowerCase();
     const exist = await isUrlFound(imageUrl);
