@@ -33,7 +33,7 @@
     overflow: auto;
     min-height: calc(100vh - #{$headerHeight});
     max-height: calc(100vh - #{$headerHeight});
-
+    padding-bottom: $headerHeight;
     //TODO: Remove with proper theming colors
     background-color: #1c0d28;
 
