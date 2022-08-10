@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Toolbar from "@mui/material/Toolbar";
 import style from "./Header.module.scss";
 import AppBar from "@mui/material/AppBar";
@@ -6,10 +6,6 @@ import Stack from "@mui/material/Stack";
 import Link from '@mui/material/Link';
 import {UserWidget} from "./UserWidget";
 import {useAuthConfig} from "@/services/auth";
-import {ethers} from "ethers";
-import ContractAbi from "@/assets/web3/contract_abi.json"
-import {JsonRpcProvider} from "@ethersproject/providers";
-import {PEPPER_SHIPS_CONTRACT_ADDRESS} from "@/config/constants";
 
 export const Header = () => {
   const {userInfo, isPepperLogged} = useAuthConfig();
