@@ -21,7 +21,7 @@ export const Game = () => {
   const [victory, setVictory] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const {ships} = useGameConfig()
-  const {selectedShip, selectShip} = useGameConfig()
+  const {selectedShip} = useGameConfig()
   const handleGameOver = (victory: any) => {
     setVictory(victory);
     setRoundActive(false);
@@ -69,7 +69,7 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
   const [background, setBackground] = useState<HTMLImageElement>(getBackground);
   const [initialized, setInitialized] = useState<boolean>(false);
 
-  const draw = (ctx: CanvasRenderingContext2D, frameCount: number) => {
+  const draw = () => {
     if (!background) {
       setBackground(getBackground());
     }
