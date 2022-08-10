@@ -9,6 +9,9 @@ import {SelectShip} from "@/components/SelectShip";
 import {GameOver} from "@/components/Game/GameOver";
 import {useGameConfig} from "@/services/game";
 
+/**
+ * Game logic variables
+ */
 let playerBulletController: any;
 let enemyBulletController: any;
 let enemyController: any;
@@ -20,8 +23,7 @@ export const Game = () => {
   const [roundActive, setRoundActive] = useState<boolean>(false);
   const [victory, setVictory] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
-  const {ships} = useGameConfig()
-  const {selectedShip} = useGameConfig()
+  const {ships, selectedShip} = useGameConfig()
   const handleGameOver = (victory: any) => {
     setVictory(victory);
     setRoundActive(false);
@@ -31,7 +33,6 @@ export const Game = () => {
   };
 
   const handleReplay = () => {
-    // setRoundActive(true);
     setGameOver(false);
     setVictory(false);
   };
@@ -46,12 +47,10 @@ export const Game = () => {
     );
 
   return gameOver ? (
-    /* hasNft should return true/false if user already got from claim */
     <GameOver handleReplay={handleReplay} hasNft={ships && ships.length > 0} victory={victory}/>
   ) : (
     <SelectShip handlePlay={handlePlay}/>
   );
-  // return roundActive ? <Round handleGameOver={handleGameOver}/> : <GameOver handleReplay={handleReplay} victory={victory}/>
 };
 
 interface RoundProps {
@@ -138,8 +137,6 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
   const initialize = async () => {
     const canvas = canvasRef.current;
     if (canvas) {
-      // const context = (canvas as HTMLCanvasElement).getContext("2d");
-      // setCanvasCtx(context)
       didWin = false;
       isGameOver = false;
       playerBulletController = new BulletController(canvas, 10, "red", true);
@@ -149,8 +146,6 @@ export const Round = ({selectedShip, handleGameOver}: RoundProps) => {
         enemyBulletController,
         playerBulletController
       );
-
-      /* TODO read ship from owned assets*/
 
       const gameImage = await selectedShip.getGameImage();
       player = new Player(canvas, 3, playerBulletController, gameImage);
