@@ -90,7 +90,12 @@ export const GameOver = ({victory, handleReplay, hasNft}: GameOverProps) => {
   );
 };
 
-const Claim = ({claimNFT, handleReplay}) => {
+interface ClaimProps {
+  claimNFT: ()=> void
+  handleReplay: () => void
+}
+
+const Claim = ({claimNFT, handleReplay}: ClaimProps) => {
   return <Stack mt={10} alignItems={"center"} direction={"column"}>
     <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
       You Won
@@ -130,7 +135,13 @@ const Claim = ({claimNFT, handleReplay}) => {
   </Stack>
 }
 
-const ClaimedSuccess = ({NFT, handleReplay, transactionId}) => {
+interface ClaimSuccessProps {
+  NFT: Ship,
+  handleReplay: () => void,
+  transactionId?: string
+}
+
+const ClaimedSuccess = ({NFT, handleReplay, transactionId}: ClaimSuccessProps) => {
   const {refreshShips} = useGameConfig();
 
   useEffect(() => {
