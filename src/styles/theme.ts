@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
-import { palette_secondary, palette_primary } from "./palettes";
+import { palette_secondary, palette_primary, palette_grey } from "./palettes";
 import React from "react";
+import setKeepAlive = chrome.socket.setKeepAlive;
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -20,14 +21,16 @@ declare module "@mui/material/Typography" {
 
 // Create a theme instance.
 const theme = createTheme({
-
   palette: {
     mode: "dark",
     primary: {
-      ...palette_primary
+      ...palette_primary,
     },
     secondary: {
-      ...palette_secondary
+      ...palette_secondary,
+    },
+    grey: {
+      ...palette_grey,
     },
     error: {
       "50": "#FFF0F1",
@@ -81,7 +84,37 @@ const theme = createTheme({
           },
         },
       },
-    }
+    },
+    MuiTextField: {
+      variants: [
+        {
+          props: {
+            variant: "outlined",
+          },
+          style: {
+            background: palette_grey["700"],
+
+            "& .Mui-focused": {
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: palette_primary.light,
+              },
+              "&.MuiInputLabel-root": {
+                color: palette_primary.light,
+              },
+            },
+            "& .MuiOutlinedInput-notchedOutline": {
+              borderColor: "rgba(255,255,255,.1)",
+            },
+            "&:hover": {
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "rgba(255,255,255,.3)",
+              },
+              background: palette_grey["600"],
+            },
+          },
+        },
+      ],
+    },
   },
 });
 
