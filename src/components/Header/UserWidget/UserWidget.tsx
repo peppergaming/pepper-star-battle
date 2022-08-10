@@ -24,7 +24,7 @@ export const UserWidget = ({user}: any) => {
   const buff = new Buffer(svgString);
   const base64data = buff.toString("base64");
   const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef<HTMLButtonElement | null>(null);
+  const anchorRef = React.useRef<HTMLButtonElement>(null);
   const {logout} = useAuthConfig();
 
   const handleToggle = () => {
@@ -37,7 +37,7 @@ export const UserWidget = ({user}: any) => {
   };
 
   const handleClose = (event: Event | React.SyntheticEvent) => {
-    if (anchorRef.current && anchorRef.current?.contains(event.target)) {
+    if (anchorRef.current && anchorRef.current?.contains(event.target as HTMLElement)) {
       return;
     }
 
