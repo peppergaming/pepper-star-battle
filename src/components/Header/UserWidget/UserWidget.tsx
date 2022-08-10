@@ -29,7 +29,7 @@ export const UserWidget = ({user}: any) => {
         setOpen((prevOpen) => !prevOpen);
     };
 
-    const handleLogout = async (event: Event | React.SyntheticEvent) => {
+    const handleLogout = async () => {
         await logout();
         setOpen(false);
     }
@@ -56,7 +56,7 @@ export const UserWidget = ({user}: any) => {
 
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
-        if (prevOpen.current === true && open === false) {
+        if (prevOpen.current && !open) {
             anchorRef.current!.focus();
         }
 
@@ -72,7 +72,9 @@ export const UserWidget = ({user}: any) => {
                     aria-expanded={open ? 'true' : undefined}
                     aria-haspopup="true"
                     onClick={handleToggle}
-                    className={style.UserInfo}>
+                    className={style.UserInfo}
+                    sx={{pb: ".5rem"}}
+                    disableRipple>
                 <Avatar sx={{width: 36, height: 36, backgroundColor: "white"}}>
                     <Image
                         src={`data:image/svg+xml;base64,${base64data}`}
