@@ -1,4 +1,4 @@
-import {CHAIN_RPC_URL, isDev, LOGIN_STATUS} from "@/config/constants";
+import {CHAIN_RPC_URL, isDev} from "@/config/constants";
 import {createContext, useContext, useEffect, useState} from "react";
 import {
   ADAPTER_STATUS,
@@ -16,7 +16,6 @@ export interface AuthConfigContextInterface {
   userInfo?: Partial<UserInfo>;
   isLoading: boolean;
   isPepperLogged: boolean;
-  loginStatus: { key: string; loading: boolean; message: string };
   socialLogin: (
     provider: string,
     hint?: string,
@@ -33,7 +32,6 @@ export interface AuthConfigContextInterface {
 export const AuthConfigContext = createContext<AuthConfigContextInterface>({
   isLoading: false,
   isPepperLogged: false,
-  loginStatus: LOGIN_STATUS.DISCONNECTED,
   metaMaskLogin: async () => {
   },
   walletConnectLogin: async () => {
@@ -54,9 +52,7 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [isPepperLogged, setIsPepperLogged] = useState<boolean>(false);
-  const [loginStatus, setLoginStatus] = useState<any>(
-    LOGIN_STATUS.DISCONNECTED
-  );
+
   const [loginSdk, setLoginSdk] = useState<PepperLogin | null>(null);
 
   const [provider, setProvider] = useState<Provider>()
@@ -72,19 +68,19 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
       async onConnected(userInfo: UserInfo, provider: Provider, signer: PepperWallet) {
         setUserInfo(userInfo)
         setIsPepperLogged(true);
-        setLoginStatus(LOGIN_STATUS.CONNECTED);
         setProvider(provider);
         setSigner(signer);
         setIsLoading(false);
+        console.debug("Connected")
       },
       async onConnecting() {
-        setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
+        console.debug("Connecting")
       },
       async onAuthChallengeSigning() {
-        setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
+        console.debug("AuthChallengeSingning")
       },
       async onDisconnected() {
-        setLoginStatus(LOGIN_STATUS.DISCONNECTED);
+        console.debug("Disconnected")
       },
       async onErrored(error: any) {
         console.error("Error from pepper sdk: ", error);
@@ -122,7 +118,6 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     if (loginSdk && loginSdk.status === ADAPTER_STATUS.READY) {
       try {
         setIsLoading(true);
-        setLoginStatus(LOGIN_STATUS.WEB3_LOGIN);
         web3Provider = await loginSdk.connectTo(
           provider,
           hint,
@@ -163,7 +158,6 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
   const logout = async () => {
     await loginSdk?.logout();
     setIsPepperLogged(false);
-    setLoginStatus(LOGIN_STATUS.DISCONNECTED);
     setUserInfo(undefined);
     setProvider(undefined);
     setIsLoading(false);
@@ -178,7 +172,6 @@ export const AuthConfigProvider = ({children}: AuthConfigProviderProps) => {
     userInfo,
     isLoading,
     isPepperLogged,
-    loginStatus,
     provider,
     signer,
     socialLogin,
