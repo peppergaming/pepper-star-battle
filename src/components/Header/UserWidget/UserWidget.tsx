@@ -12,8 +12,9 @@ import style from "./UserWidget.module.scss"
 import {Popper} from "@mui/material";
 import Button from "@mui/material/Button";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+
 import {useAuthConfig} from "@/services/auth";
 
 export const UserWidget = ({user}: any) => {
@@ -119,12 +120,16 @@ export const UserWidget = ({user}: any) => {
                                     aria-labelledby="composition-button"
                                     onKeyDown={handleListKeyDown}
                                 >
-                                    <MenuItem onClick={handleClose}><span
-                                        style={{fontSize: "14px"}}>Profile</span><PersonOutlineOutlinedIcon
-                                        style={{marginLeft: "0.4rem"}}/></MenuItem>
-                                    <MenuItem onClick={handleLogout}><span
+                                    <MenuItem component="a" href="https://app.peppergaming.com/nfts"
+                                        sx={{display: "right", justifyContent: "flex-end"}}
+                                    ><span
+                                        style={{fontSize: "14px"}}>Collectibles</span><GridViewRoundedIcon
+                                        style={{marginLeft: "0.6rem"}}/></MenuItem>
+                                    <MenuItem onClick={handleLogout}
+                                              sx={{display: "right", justifyContent: "flex-end"}}
+                                    ><span
                                         style={{fontSize: "14px"}}>Logout</span><LogoutOutlinedIcon
-                                        style={{marginLeft: "0.4rem"}}/></MenuItem>
+                                        style={{marginLeft: "0.6rem"}}/></MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
