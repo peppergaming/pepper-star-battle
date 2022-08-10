@@ -2,10 +2,10 @@ import '../styles/globals.css'
 import type {AppProps} from 'next/app'
 import {AuthConfigProvider} from "@/services/auth";
 import {Page} from "@/types/page";
-import {ThemeProvider, useTheme} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import Head from "next/head";
 import {GameConfigProvider} from "@/services/game";
-
+import theme from "@/styles/theme";
 
 interface PepperStarGameProps extends AppProps {
   Component: Page;
@@ -14,7 +14,6 @@ interface PepperStarGameProps extends AppProps {
 function PepperStarBattle(props: PepperStarGameProps) {
   const {Component, pageProps} = props;
 
-  const theme = useTheme();
   const getLayout = Component.getLayout || ((page) => page);
   return <>
     <Head>
