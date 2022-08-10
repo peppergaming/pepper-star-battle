@@ -6,19 +6,17 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import Ship from "@/game/Ship";
-import {useGameConfig} from "@/services/game";
+import { useGameConfig } from "@/services/game";
 
 interface ShipCardProps {
   shipModel: Ship;
 }
 
-export const ShipCard = ({
-  shipModel,
-}: ShipCardProps) => {
-  const {selectShip, selectedShip} = useGameConfig();
+export const ShipCard = ({ shipModel }: ShipCardProps) => {
+  const { selectShip, selectedShip } = useGameConfig();
 
   const handleClick = () => {
-    selectShip(shipModel)
+    selectShip(shipModel);
   };
 
   let className = "";

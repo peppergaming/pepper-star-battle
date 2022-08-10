@@ -1,15 +1,13 @@
 import React from "react";
-import type {Page} from "@/types/page";
-import {Login} from "@/components/Login/Login";
-import {MainLayout} from "@/components/../layouts/MainLayout";
-import {useAuthConfig} from "@/services/auth";
-import {Game} from "@/components/Game";
+import type { Page } from "@/types/page";
+import { Login } from "@/components/Login/Login";
+import { MainLayout } from "@/components/../layouts/MainLayout";
+import { useAuthConfig } from "@/services/auth";
+import { Game } from "@/components/Game";
 
 const HomePage = () => {
-  const {isPepperLogged} = useAuthConfig();
-  return (
-    isPepperLogged ? <Game/> : <Login/>
-  );
+  const { isPepperLogged } = useAuthConfig();
+  return isPepperLogged ? <Game /> : <Login />;
 };
 HomePage.getLayout = (page: Page) => <MainLayout>{page}</MainLayout>;
 
