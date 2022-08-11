@@ -1,34 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pepper Star Battle
 
-## Getting Started
+## Demo game featuring [Peppergaming Auth SDK](https://github.com/peppergaming/auth).
 
-First, run the development server:
+![](public/images/demo_preview.png)
 
-```bash
-npm run dev
-# or
-yarn dev
+This project shows how our [Auth SDK](https://github.com/peppergaming/auth)
+can be integrated in a game, allowing an easy web3 integration.
+
+The game codebase is inspired by [this project](https://github.com/CodingWith-Adam/space-invaders).
+
+You can try the demo [here](https://demo.peppergaming.com/)!
+
+Users can login and have access to a web3 profile. After the first win it is possible to claim an NFT ship from
+our [demo collection](https://testnets.opensea.io/assets/rinkeby/0x90a96fca895860a945515c39d5945e854f17e95f/) and use
+them in the game.
+
+### Peppergaming sdk integration
+
+The authentication powered by Peppergaming, can be found in the [auth service](src/services/auth/index.tsx)
+. This is a typical implementation of authentication, by using [react's context](https://reactjs.org/docs/context.html)
+infrastructure.
+
+In this project we initialized the peppergaming sdk with the following code:
+
+```typescript
+    const eventSubscriber: EventSubscriber = {
+  async onConnected(
+    userInfo: UserInfo,
+    provider: Provider,
+    signer: PepperWallet
+  ) {
+    setUserInfo(userInfo);
+    setIsPepperLogged(true);
+    setProvider(provider);
+    setSigner(signer);
+    setIsLoading(false);
+    console.debug("Connected");
+  },
+  async onConnecting() {
+    console.debug("Connecting");
+  },
+  async onAuthChallengeSigning() {
+    console.debug("AuthChallengeSingning");
+  },
+  async onDisconnected() {
+    console.debug("Disconnected");
+  },
+  async onErrored(error: any) {
+    console.error("Error from pepper sdk: ", error);
+    await pepperSdk?.logout();
+  },
+};
+
+let options: PepperLoginOptions = {
+  chainConfig: {
+    chainId: 4,
+    name: "Ankr Rinkeby RPC",
+    rpcTarget: CHAIN_RPC_URL,
+  },
+  isDevelopment: isDev,
+  isMobile: isMobile,
+  logLevel: isDev ? "debug" : "info",
+  eventSubscriber,
+};
+
+const pepperSdk = new PepperLogin(options);
+
+await pepperSdk.init();
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+In this case we passed also the chainConfig option, that allows to obtain
+a [web3 Provider](https://docs.ethers.io/v5/api/providers/provider/) ready to use after login.
+The usage of this Provider can be found in the [game service](src/services/game/index.tsx).
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+For more information about how to get started with our sdk please visit https://github.com/peppergaming/auth .
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Local Development
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+If you want to run the application in your local node environment you will need node 16+.
 
-## Learn More
+Just clone or download this repo and install the dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+```shell
+npm i
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Then launch the application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```shell
+npm run dev
+```
