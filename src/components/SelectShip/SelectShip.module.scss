@@ -1,7 +1,10 @@
 @import "../../styles/colors";
 
 .ShipPage {
-  padding: 4rem;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  padding: 5rem 4rem 7rem;
   text-align: center;
   border-radius: 10px;
   background-color: transparent;

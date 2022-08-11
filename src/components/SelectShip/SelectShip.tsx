@@ -25,31 +25,31 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
 
   return (
     <div className={style.ShipPage}>
-      <Typography fontWeight={600} fontSize={30} sx={{ color: "gray" }}>
+      <Typography fontWeight={600} fontSize={30} sx={{ color: "grey.A20" }}>
         Good Old
       </Typography>
-      <Typography fontWeight={600} fontSize={30} sx={{ color: "whitesmoke" }}>
+      <Typography fontWeight={600} fontSize={30}>
         Starship Battle
       </Typography>
-      <Typography mt={1} mb={6} fontSize={16} sx={{ color: "whitesmoke" }}>
+      <Typography mt={1} mb={6} fontSize={16}>
         Demo of the capabilities of Pepper Web3 SDK
       </Typography>
-      <Typography fontSize={12} sx={{ textAlign: "left", color: "whitesmoke" }}>
+      <Typography fontSize={12} sx={{ textAlign: "left", color: "grey.A70" }}>
         Choose Starship
       </Typography>
-      <Divider sx={{ backgroundColor: "whitesmoke" }} />
+      <Divider sx={{ backgroundColor: "grey.A10", mb: ".5rem", mt: ".3rem" }} />
       <ShipsGrid assets={pepperShips} />
-      <Stack mt={4} direction={"column"} spacing={4}>
-        <Button
-          size={"large"}
-          className={style.EmailButton}
-          fullWidth
-          variant={"contained"}
-          onClick={handlePlay}
-        >
-          Play
-        </Button>
-      </Stack>
+
+      <Button
+        size={"large"}
+        className={style.EmailButton}
+        fullWidth
+        variant={"contained"}
+        onClick={handlePlay}
+        sx={{ mt: "auto" }}
+      >
+        Play
+      </Button>
     </div>
   );
 };
