@@ -1,0 +1,47 @@
+@use "sass:map";
+@import "./_colors.scss";
+
+html,
+body {
+  color: #fff;
+  background-color: #1C0D28;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// LIB OVERRIDES ///////
+
+/// TEXT FIELD ////
+
+.MuiTextField-root {
+  input {
+    //background: #280D3E;
+    background: map.get($grey, 700);
+  }
+
+  &:hover {
+    .MuiOutlinedInput-notchedOutline {
+      border-color: rgba(255,255,255,0.4);
+    }
+  }
+
+  & .Mui-focused {
+    &.MuiInputLabel-root {
+      color: map.get($primary, "light");
+    }
+    .MuiOutlinedInput-notchedOutline {
+      border-color: map.get($primary, "light");
+    }
+  }
+}

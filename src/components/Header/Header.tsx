@@ -19,7 +19,7 @@ export const Header = (props: HeaderProps) => {
       elevation={0}
       position="static"
       enableColorOnDark={true}
-      color="inherit"
+      color="transparent"
       className={style.Header}
     >
       <Toolbar sx={{ minHeight: "auto!important", height: "100%!important" }}>
