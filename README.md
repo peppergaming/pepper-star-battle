@@ -24,7 +24,7 @@ infrastructure.
 In this project we initialized the peppergaming sdk with the following code:
 
 ```typescript
-    const eventSubscriber: EventSubscriber = {
+const eventSubscriber: EventSubscriber = {
   async onConnected(
     userInfo: UserInfo,
     provider: Provider,
