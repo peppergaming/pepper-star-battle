@@ -170,16 +170,7 @@ const LoginFormView = ({
           id={"login-mail"}
           fullWidth
           label={"email"}
-          color={"secondary"}
-          InputLabelProps={{
-            style: {
-              color: "whitesmoke",
-            },
-          }}
-          sx={{
-            input: { color: "whitesmoke" },
-            label: { color: "whitesmoke" },
-          }}
+          variant={"outlined"}
           placeholder={"username@example.com"}
           onChange={onEmailChange}
           onKeyUp={async (e) => {

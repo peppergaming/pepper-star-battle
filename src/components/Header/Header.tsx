@@ -6,11 +6,8 @@ import Stack from "@mui/material/Stack";
 import Link from "@mui/material/Link";
 import { UserWidget } from "./UserWidget";
 import { useAuthConfig } from "@/services/auth";
-interface HeaderProps {
-  className?: string;
-}
 
-export const Header = (props: HeaderProps) => {
+export const Header = () => {
   const { userInfo, isPepperLogged } = useAuthConfig();
 
   return (
@@ -29,13 +26,13 @@ export const Header = (props: HeaderProps) => {
             style={{ width: "100px" }}
           />
           <Stack direction={"row"} spacing={3} ml={5}>
-            <Link href="https://peppergaming.com" target="_blank">
+            <Link href="https://peppergaming.com" target="_blank" color="inherit">
               Website
             </Link>
-            <Link href="https://app.peppergaming.com" target="_blank">
+            <Link href="https://app.peppergaming.com" target="_blank" color="inherit">
               App
             </Link>
-            <Link href="https://github.com/peppergaming/auth" target="_blank">
+            <Link href="https://github.com/peppergaming/auth" target="_blank" color="inherit">
               SDK
             </Link>
           </Stack>
