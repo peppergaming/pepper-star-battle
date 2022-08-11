@@ -1,25 +1,9 @@
-import { useRef, useEffect } from "react";
+import {useEffect} from "react";
 
-const updateCanvasSize = (
-  canvas: HTMLCanvasElement,
-  context: CanvasRenderingContext2D
-) => {
-  const { width, height } = canvas.getBoundingClientRect();
-
-  if (canvas.width !== width || canvas.height !== height) {
-    const { devicePixelRatio: ratio = 1 } = window;
-    canvas.width = width * ratio;
-    canvas.height = height * ratio;
-    context.scale(ratio, ratio);
-    return true;
-  }
-
-  return false;
-};
 
 const useCanvas = (
   draw: (ctx: any, frameCount: any) => any,
-  options = { context: null },
+  options = {context: null},
   canvasRef: any
 ) => {
   // const canvasRef = useRef(null);
@@ -35,7 +19,6 @@ const useCanvas = (
       if (context) {
         const render = () => {
           frameCount++;
-          // updateCanvasSize(canvas, context);
           draw(context, frameCount);
           animationFrameId = window.requestAnimationFrame(render);
         };
