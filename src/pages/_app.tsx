@@ -1,8 +1,8 @@
-import "../styles/globals.css";
-import type {AppProps} from "next/app";
+import "@/styles/globals.scss";
+import type { AppProps } from "next/app";
 import {AuthConfigService} from "@/services/auth";
-import {Page} from "@/types/page";
-import {ThemeProvider, useTheme} from "@mui/material";
+import { Page } from "@/types/page";
+import { ThemeProvider } from "@mui/material";
 import Head from "next/head";
 import {GameConfigService} from "@/services/game";
 import theme from "@/styles/theme";

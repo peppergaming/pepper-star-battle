@@ -1,6 +1,8 @@
 import { createTheme } from "@mui/material/styles";
 import { palette_secondary, palette_primary, palette_grey } from "./palettes";
 import React from "react";
+import sx from "@mui/system/sx";
+import { OutlinedInputClassKey } from "@mui/material/OutlinedInput";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -51,6 +53,9 @@ const theme = createTheme({
       default: "#1C0D28",
       paper: "#280D3E",
     },
+    text: {
+      primary: "#fff",
+    },
   },
   typography: {
     fontFamily: ["Rubik", "Roboto", "sans-serif"].join(","),
@@ -83,37 +88,6 @@ const theme = createTheme({
           },
         },
       },
-    },
-
-    MuiTextField: {
-      variants: [
-        {
-          props: {
-            variant: "outlined",
-          },
-          style: {
-            background: palette_grey["700"],
-
-            "& .Mui-focused": {
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: palette_primary.light,
-              },
-              "&.MuiInputLabel-root": {
-                color: palette_primary.light,
-              },
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "rgba(255,255,255,.1)",
-            },
-            "&:hover": {
-              "& .MuiOutlinedInput-notchedOutline": {
-                borderColor: "rgba(255,255,255,.3)",
-              },
-              background: palette_grey["600"],
-            },
-          },
-        },
-      ],
     },
 
     MuiButtonBase: {
@@ -159,25 +133,11 @@ const theme = createTheme({
             "&:hover, &.Mui-focusVisible": {
               borderColor: palette_primary["300"],
               backgroundColor: palette_primary["500"],
-              // "& .MuiButton-endIcon": {
-              //   color: "#66B2FF",
-              // },
             },
-            // "& .MuiButton-startIcon": {
-            //   color: "#B2BAC2",
-            // },
-            // "& .MuiButton-endIcon": {
-            //   display: "inline-block",
-            //   position: "absolute",
-            //   right: 0,
-            //   marginRight: 10,
-            //   color: "#B2BAC2",
-            // },
           },
         },
         {
           props: {
-            // "variant": "link"  --> Not allowed in interface
             variant: "text",
           },
           style: {
