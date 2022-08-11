@@ -1,5 +1,5 @@
-import { CHAIN_RPC_URL, isDev } from "@/config/constants";
-import { createContext, useContext, useEffect, useState } from "react";
+import {CHAIN_RPC_URL, isDev} from "@/config/constants";
+import {createContext, useContext, useEffect, useState} from "react";
 import {
   ADAPTER_STATUS,
   EventSubscriber,
@@ -9,7 +9,7 @@ import {
   UserInfo,
 } from "@peppergaming/auth";
 
-import { Provider } from "@ethersproject/abstract-provider";
+import {Provider} from "@ethersproject/abstract-provider";
 
 export interface AuthConfigContextInterface {
   userInfo?: Partial<UserInfo>;
@@ -31,11 +31,14 @@ export interface AuthConfigContextInterface {
 export const AuthConfigContext = createContext<AuthConfigContextInterface>({
   isLoading: false,
   isPepperLogged: false,
-  metaMaskLogin: async () => {},
-  walletConnectLogin: async () => {},
+  metaMaskLogin: async () => {
+  },
+  walletConnectLogin: async () => {
+  },
   socialLogin: async () => null,
   refreshLogin: async () => null,
-  logout: async () => {},
+  logout: async () => {
+  },
 });
 
 export const useAuthConfig = () => useContext(AuthConfigContext);
@@ -44,7 +47,7 @@ interface AuthConfigProviderProps {
   children?: any;
 }
 
-export const AuthConfigProvider = ({ children }: AuthConfigProviderProps) => {
+export const AuthConfigService = ({children}: AuthConfigProviderProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [isPepperLogged, setIsPepperLogged] = useState<boolean>(false);

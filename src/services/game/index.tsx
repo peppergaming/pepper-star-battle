@@ -1,8 +1,8 @@
 import Ship from "@/game/Ship";
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { useAuthConfig } from "@/services/auth";
-import { Contract } from "@ethersproject/contracts";
-import { ethers } from "ethers";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import {useAuthConfig} from "@/services/auth";
+import {Contract} from "@ethersproject/contracts";
+import {ethers} from "ethers";
 import {
   DEFAULT_SHIP,
   PEPPER_SHIPS_CONTRACT_ADDRESS,
@@ -19,17 +19,19 @@ export interface GameConfigContextInterface {
 export const GameConfigContext = createContext<GameConfigContextInterface>({
   ships: [],
   selectedShip: DEFAULT_SHIP,
-  selectShip: () => {},
-  refreshShips: async () => {},
+  selectShip: () => {
+  },
+  refreshShips: async () => {
+  },
 });
 
 export const useGameConfig = () => useContext(GameConfigContext);
 
-export const GameConfigProvider = ({ children }: any) => {
+export const GameConfigService = ({children}: any) => {
   const [ships, setShips] = useState<Ship[]>([]);
   const [selectedShip, setSelectedShip] = useState<Ship>(DEFAULT_SHIP);
   const [contract, setContract] = useState<Contract>();
-  const { provider, userInfo } = useAuthConfig();
+  const {provider, userInfo} = useAuthConfig();
 
   const refreshShips = async () => {
     if (contract && userInfo) {
