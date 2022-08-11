@@ -41,7 +41,7 @@ export const ShipCard = ({ shipModel }: ShipCardProps) => {
           <Stack direction={"column"}>
             <Typography variant={"body2"} color={"grey.A70"}>
               {` ${shipModel.name}`}
-            </Typography>{" "}
+            </Typography>
           </Stack>
         )}
       </CardActionArea>
