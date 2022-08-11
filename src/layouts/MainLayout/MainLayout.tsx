@@ -1,6 +1,4 @@
-import useMediaQuery from "@mui/material/useMediaQuery";
 import style from "./MainLayout.module.scss";
-import { useTheme } from "@mui/material";
 import { Header } from "@/components/Header/Header";
 
 export const MainLayout = ({ children }: any) => {

@@ -1,8 +1,8 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
 import { ShipCard } from "@/components/SelectShip/ShipCard";
 import Ship from "@/game/Ship";
 import { useGameConfig } from "@/services/game";
+import Stack from "@mui/material/Stack";
 
 export interface ShipGridModel {
   assets: Ship[];
@@ -10,12 +10,10 @@ export interface ShipGridModel {
 
 export const ShipsGrid = ({ assets }: ShipGridModel) => {
   return (
-    <Grid container columns={6} spacing={1}>
+    <Stack direction={"row"} spacing={1}>
       {assets.map((asset: Ship, index: any) => (
-        <Grid item key={`sff_game_${asset.edition}`}>
-          <ShipCard key={index} shipModel={asset} />
-        </Grid>
+        <ShipCard key={index} shipModel={asset} />
       ))}
-    </Grid>
+    </Stack>
   );
 };

@@ -22,20 +22,24 @@ export const ShipCard = ({ shipModel }: ShipCardProps) => {
   let className = "";
 
   if (shipModel.name === selectedShip.name) {
-    className = `${style.AssetCardActive}`;
+    className = `${style.AssetCardActive} ${style.AssetCard}`;
   } else {
     className = `${style.AssetCard}`;
   }
 
   return (
     <Card className={className} elevation={0}>
-      <CardActionArea onClick={handleClick}>
-        <Stack direction={"column"} className={style.AssetCardContent}>
+      <CardActionArea onClick={handleClick} sx={{ height: "100%" }}>
+        <Stack
+          direction={"column"}
+          className={style.AssetCardContent}
+          mb={".5rem"}
+        >
           <CardMedia className={style.Media} image={shipModel.getNFTImage()} />
         </Stack>
         {shipModel.name && (
           <Stack direction={"column"}>
-            <Typography className={style.TextShip}>
+            <Typography variant={"body2"} color={"grey.A70"}>
               {` ${shipModel.name}`}
             </Typography>{" "}
           </Stack>
