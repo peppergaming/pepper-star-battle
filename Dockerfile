@@ -41,11 +41,11 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
 ENV CRAWLER_PATH="./public/robots.txt"
-RUN "Allow: /" >> $CRAWLER_PATH; else echo "Disallow: /" >> $CRAWLER_PATH
+RUN echo "Allow: /" >> $CRAWLER_PATH
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
-#COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
