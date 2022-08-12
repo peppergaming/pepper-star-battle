@@ -204,7 +204,7 @@ const ClaimedSuccess = ({
             border: "2px solid gold",
           }}
         />
-        <Link href={`${ETHERSCAN_URL}/tx/${transactionId}`}>
+        <Link href={`${ETHERSCAN_URL}/tx/${transactionId}`} target="_blank">
           Check it on EtherScan
         </Link>
         <Button
