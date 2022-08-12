@@ -171,7 +171,14 @@ export const Round = ({ selectedShip, handleGameOver }: RoundProps) => {
 
   return (
     <div className={style.Game}>
-      <Canvas ref={canvasRef} draw={draw} height={600} width={600} />
+      {/*<Canvas ref={canvasRef} draw={draw} className={style.gameCanvas} />*/}
+      <Canvas
+        ref={canvasRef}
+        draw={draw}
+        height={600}
+        width={600}
+        className={style.gameCanvas}
+      />
     </div>
   );
 };

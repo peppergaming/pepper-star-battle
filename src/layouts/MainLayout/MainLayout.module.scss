@@ -1,3 +1,4 @@
+@use "sass:map";
 @import "../../styles/variables";
 
 .MainLayout {
@@ -31,15 +32,16 @@
     align-items: center;
     grid-area: M;
     overflow: auto;
-    min-height: calc(100vh - #{$headerHeight});
-    max-height: calc(100vh - #{$headerHeight});
+    height: calc(100vh - #{$headerHeight});
+    min-height: 750px;
     padding-bottom: $headerHeight;
-    //TODO: Remove with proper theming colors
-    background-color: #1c0d28;
+    background-color:  map.get($grey, 900);
 
     .MainWrapper {
       width: $monitorSize;
       height: $monitorSize;
+      min-width: $minMonitorSize;
+      min-height: $minMonitorSize;
       position: relative;
       padding: 10px;
       @media (max-width: $lg - 1  + "px") {
@@ -61,10 +63,16 @@
     }
 
     .MonitorContent {
+      $monitorContentSize: calc(#{$monitorSize} - #{20px});
+      $minMonitorContentSize: calc(#{$minMonitorSize} - #{20px});
       content: " ";
       position: absolute;
-      top: 3px;
-      left: 3px;
+      top: 10px;
+      left: 10px;
+      width: $monitorContentSize;
+      height: $monitorContentSize;
+      min-width: $minMonitorContentSize;
+      min-height: $minMonitorContentSize;
       right: 0;
       bottom: 0;
       background-color: transparent;

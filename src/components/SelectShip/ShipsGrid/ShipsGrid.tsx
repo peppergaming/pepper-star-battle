@@ -10,7 +10,7 @@ export interface ShipGridModel {
 
 export const ShipsGrid = ({ assets }: ShipGridModel) => {
   return (
-    <Stack direction={"row"} spacing={1}>
+    <Stack direction={"row"} spacing={1} mb={"1rem"}>
       {assets.map((asset: Ship, index: any) => (
         <ShipCard key={index} shipModel={asset} />
       ))}

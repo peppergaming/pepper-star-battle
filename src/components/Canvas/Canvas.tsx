@@ -7,6 +7,7 @@ export interface CanvasProps {
   width?: number;
   height?: number;
   options?: any;
+  className?: string;
 }
 
 const Canvas = forwardRef<any, any>((props: CanvasProps, ref) => {
