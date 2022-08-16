@@ -1,4 +1,3 @@
-import * as React from "react";
 import { ShipCard } from "@/components/SelectShip/ShipCard";
 import Ship from "@/game/Ship";
 import Stack from "@mui/material/Stack";
