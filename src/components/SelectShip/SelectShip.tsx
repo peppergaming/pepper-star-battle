@@ -42,7 +42,7 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
       </Typography>
       <Divider sx={{ backgroundColor: "grey.A10", mb: ".5rem", mt: ".3rem" }} />
       <ShipsGrid assets={pepperShips} />
-      {ships && ships.length && (
+      {ships && !!ships.length && (
         <Typography sx={{ textAlign: "right", pb: ".5rem" }}>
           <Link href={"https://app.peppergaming.com/nfts"} target={"_blank"}>
             View your collectibles
