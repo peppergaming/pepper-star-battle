@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import style from "./Login.module.scss";
 import TextField from "@mui/material/TextField";
-import { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Divider from "@mui/material/Divider";
@@ -158,10 +158,9 @@ const LoginFormView = ({
     <AuthorizedView />
   ) : (
     <div className={style.Login}>
-      <Typography fontWeight={600} fontSize={25} sx={{ color: "white" }}>
-        Starship Battle
-      </Typography>
-      <Typography mt={1} mb={6} fontSize={16} sx={{ color: "white" }}>
+      <Typography variant={"overline"}>Good Old</Typography>
+      <Typography variant={"h1"}>Starship Battle</Typography>
+      <Typography variant={"h4"} mb={6}>
         Demo of the capabilities of Pepper Web3 SDK
       </Typography>
       <Stack mb={3} direction={"column"} spacing={4}>

@@ -1,18 +1,6 @@
-@import "breakpoints.module";
 @import "./colors";
 
-$phi: 1.618;
-
-$leftPanelWidth: 300px;
-$leftPanelHeight: 100vh;
-
-$rightPanelWidth: 300px;
-$rightPanelHeight: 100vh;
-
 $headerHeight: 100px;
-$headerWidth: 100vw;
-
-$webkit-ScrollbarWidth: 0.5rem;
 
 $monitorSize: 60vh;
 $minMonitorSize: 550px;

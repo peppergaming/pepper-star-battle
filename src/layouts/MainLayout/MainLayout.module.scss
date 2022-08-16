@@ -7,14 +7,14 @@
   display: grid;
   overflow-y: auto;
 
-  @media (max-width: $lg - 1  + "px") {
+  @media (max-width: 1199px) {
     grid-template: 1 / auto;
     grid-template-areas:
       "H"
       "M";
   }
 
-  @media (min-width: $lg + "px") {
+  @media (min-width: 1200px) {
     grid-template: 1/2;
     grid-template-areas:
       "H"
@@ -44,7 +44,7 @@
       min-height: $minMonitorSize;
       position: relative;
       padding: 10px;
-      @media (max-width: $lg - 1  + "px") {
+      @media (max-width: 1199px) {
         padding: 4rem;
       }
     }
