@@ -159,7 +159,6 @@ const LoginFormView = ({
     <AuthorizedView />
   ) : (
     <div className={style.Login}>
-      {/*<Typography variant={"overline"}>Pepper</Typography>*/}
       <Typography variant={"h1"} mb={1}>
         Pepper Star Battle
       </Typography>
