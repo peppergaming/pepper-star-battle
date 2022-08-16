@@ -119,18 +119,20 @@ const theme = createTheme({
       },
       styleOverrides: {
         sizeLarge: {
-          padding: "0.875rem 1rem",
+          padding: "1rem 2rem",
           fontSize: "1rem",
           lineHeight: 1.3125,
           letterSpacing: 0,
         },
-        sizeSmall: {
-          padding: "4px 8px",
-          marginLeft: "-8px",
-        },
         containedPrimary: {
           backgroundColor: palette_primary.main,
           color: "#fff",
+        },
+        root: {
+          padding: "0.7rem 1.5rem",
+          "&:hover": {
+            backgroundColor: palette_grey["700"],
+          },
         },
       },
       variants: [
@@ -151,20 +153,6 @@ const theme = createTheme({
             "&:hover, &.Mui-focusVisible": {
               borderColor: palette_primary["300"],
               backgroundColor: palette_primary["500"],
-            },
-          },
-        },
-        {
-          props: {
-            variant: "text",
-          },
-          style: {
-            fontSize: "0.875rem",
-            fontWeight: 700,
-            color: palette_primary.light,
-            mb: 1,
-            "& svg": {
-              ml: -0.5,
             },
           },
         },
