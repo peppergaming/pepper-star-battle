@@ -1,27 +1,26 @@
 # Pepper Star Battle
+## Defend your starship by playing this classic arcade game. 
 
-## Demo game featuring [Peppergaming Auth SDK](https://github.com/peppergaming/auth).
+## Try the [Demo here](https://demo.peppergaming.com/)!
+
 
 ![](public/images/demo_preview.png)
-
-This project shows how our [Auth SDK](https://github.com/peppergaming/auth)
+This project shows how our [Pepper Auth SDK](https://github.com/peppergaming/auth)
 can be integrated in a game, allowing an easy web3 integration.
 
 The game codebase is inspired by [this project](https://github.com/CodingWith-Adam/space-invaders).
-
-You can try the demo [here](https://demo.peppergaming.com/)!
 
 Users can login and have access to a web3 profile. After the first win it is possible to claim an NFT ship from
 our [demo collection](https://testnets.opensea.io/assets/rinkeby/0x90a96fca895860a945515c39d5945e854f17e95f/) and use
 them in the game.
 
-### Peppergaming sdk integration
+### Pepper sdk integration
 
-The authentication powered by Peppergaming, can be found in the [auth service](src/services/auth/index.tsx)
+The authentication powered by Pepper, can be found in the [auth service](src/services/auth/index.tsx)
 . This is a typical implementation of authentication, by using [react's context](https://reactjs.org/docs/context.html)
 infrastructure.
 
-In this project we initialized the peppergaming sdk with the following code:
+In this project we initialized the Pepper sdk with the following code:
 
 ```typescript
 const eventSubscriber: EventSubscriber = {
