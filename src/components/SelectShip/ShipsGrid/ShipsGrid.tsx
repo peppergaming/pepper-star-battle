@@ -1,7 +1,6 @@
 import * as React from "react";
 import { ShipCard } from "@/components/SelectShip/ShipCard";
 import Ship from "@/game/Ship";
-import { useGameConfig } from "@/services/game";
 import Stack from "@mui/material/Stack";
 
 export interface ShipGridModel {
