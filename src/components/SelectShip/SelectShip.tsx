@@ -6,6 +6,7 @@ import { ShipsGrid } from "@/components/SelectShip/ShipsGrid";
 import React, { useEffect } from "react";
 import { DEFAULT_SHIP } from "@/config/constants";
 import { useGameConfig } from "@/services/game";
+import Link from "@mui/material/Link";
 
 interface SelectShipProps {
   handlePlay: (ship: any) => void;
@@ -33,7 +34,6 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
       <Typography variant={"body2"} mb={6} color={"grey.A50"}>
         Use cursor keys or A, S to move, space to fire
       </Typography>
-
       <Typography
         variant={"body2"}
         sx={{ textAlign: "left", color: "grey.A50" }}
@@ -42,7 +42,13 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
       </Typography>
       <Divider sx={{ backgroundColor: "grey.A10", mb: ".5rem", mt: ".3rem" }} />
       <ShipsGrid assets={pepperShips} />
-
+      {ships && ships.length && (
+        <Typography sx={{ textAlign: "right", pb: ".5rem" }}>
+          <Link href={"https://app.peppergaming.com/nfts"} target={"_blank"}>
+            View your collectibles
+          </Link>
+        </Typography>
+      )}
       <Button
         size={"large"}
         className={style.EmailButton}
