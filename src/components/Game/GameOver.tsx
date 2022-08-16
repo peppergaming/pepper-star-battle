@@ -75,10 +75,10 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
           spacing={1}
           mt={10}
         >
-          <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>
+          <Typography variant={"overline"}>
             {victory ? "WAGMI" : "NGMI"}
           </Typography>
-          <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
+          <Typography variant={"h1"}>
             {victory ? "You Won" : "Game Over"}
           </Typography>
         </Stack>
@@ -117,11 +117,9 @@ interface ClaimProps {
 const Claim = ({ claimNFT, handleReplay, isLoading }: ClaimProps) => {
   return (
     <Stack mt={10} alignItems={"center"} direction={"column"}>
-      <Typography variant={"h3"} fontWeight={"bolder"} color={"white"}>
-        You Won
-      </Typography>
+      <Typography variant={"h1"}>You Won</Typography>
       <Stack sx={{ textAlign: "center" }}>
-        <Typography fontSize={16} sx={{ color: "whitesmoke", marginTop: "0" }}>
+        <Typography variant={"h4"}>
           {!isLoading
             ? "Click on claim to receive a new NFT Ship!"
             : "Getting your nft..."}
@@ -182,15 +180,9 @@ const ClaimedSuccess = ({
         spacing={1}
         mt={10}
       >
-        <Typography variant={"subtitle1"} fontWeight={"bold"} color={"gray"}>
-          Claimed
-        </Typography>
-        <Typography fontSize={32} fontWeight={"bolder"} color={"white"}>
-          You received a new NFT!
-        </Typography>
-        <Typography variant={"subtitle1"} fontWeight={"bold"} color={"white"}>
-          {NFT.name}
-        </Typography>
+        <Typography variant={"overline"}>Claimed</Typography>
+        <Typography variant={"h1"}>You received a new NFT!</Typography>
+        <Typography variant={"h4"}>{NFT.name}</Typography>
       </Stack>
       <Stack spacing={2}>
         <img

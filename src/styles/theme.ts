@@ -1,8 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import { palette_secondary, palette_primary, palette_grey } from "./palettes";
 import React from "react";
-import sx from "@mui/system/sx";
-import { OutlinedInputClassKey } from "@mui/material/OutlinedInput";
 
 declare module "@mui/material/styles" {
   interface TypographyVariants {
@@ -58,7 +56,27 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Rubik", "Roboto", "sans-serif"].join(","),
+    fontFamily: ["Acumin Pro", "Roboto", "sans-serif"].join(","),
+    h1: {
+      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontWeight: 700,
+      lineHeight: 1.1,
+      fontSize: "3rem",
+      color: "white",
+    },
+    overline: {
+      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontWeight: 700,
+      lineHeight: 1.1,
+      fontSize: "3rem",
+      color: palette_grey["A20"],
+    },
+    h4: {
+      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontSize: "1.2rem",
+      lineHeight: 2,
+      color: "white",
+    },
     body3: {
       fontSize: "0.7rem",
     },
