@@ -12,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 import { useAuthConfig } from "@/services/auth";
 import CircularProgress from "@mui/material/CircularProgress";
 import ErrorIcon from "@mui/icons-material/Error";
+import Link from "@mui/material/Link";
 
 export interface ErrorViewProps {
   message?: string;
@@ -158,10 +159,18 @@ const LoginFormView = ({
     <AuthorizedView />
   ) : (
     <div className={style.Login}>
-      <Typography variant={"overline"}>Good Old</Typography>
-      <Typography variant={"h1"}>Starship Battle</Typography>
-      <Typography variant={"h4"} mb={6}>
-        Demo of the capabilities of Pepper Web3 SDK
+      {/*<Typography variant={"overline"}>Pepper</Typography>*/}
+      <Typography variant={"h1"} mb={1}>
+        Pepper Star Battle
+      </Typography>
+      <Typography variant={"h4"} mb={1}>
+        Defend your star ship by playing this classic arcade
+      </Typography>
+      <Typography variant={"body2"} mb={7} color={"grey.A50"}>
+        The game is built with the{" "}
+        <Link href="https://github.com/peppergaming/auth" target="_blank">
+          Pepper Auth SDK
+        </Link>
       </Typography>
       <Stack mb={3} direction={"column"} spacing={4}>
         <TextField
