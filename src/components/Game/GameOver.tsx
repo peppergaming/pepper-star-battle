@@ -82,6 +82,11 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
             {victory ? "You Won" : "Game Over"}
           </Typography>
         </Stack>
+        <Typography mt={4}>
+          <Link href={"https://app.peppergaming.com/nfts"} target={"_blank"}>
+            View your collectibles
+          </Link>
+        </Typography>
         <Button
           sx={{ color: "white", marginTop: "10rem" }}
           endIcon={<ReplayIcon />}
