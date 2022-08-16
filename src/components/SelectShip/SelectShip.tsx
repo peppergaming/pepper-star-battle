@@ -24,12 +24,20 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
 
   return (
     <div className={style.ShipPage}>
-      <Typography variant={"overline"}>Good Old</Typography>
-      <Typography variant={"h1"}>Starship Battle</Typography>
-      <Typography variant={"h4"} mt={1} mb={6} fontSize={16}>
-        Demo of the capabilities of Pepper Web3 SDK
+      <Typography variant={"h1"} mb={1}>
+        Pepper Star Battle
       </Typography>
-      <Typography fontSize={12} sx={{ textAlign: "left", color: "grey.A70" }}>
+      <Typography variant={"h4"} mb={1}>
+        Successfully complete a game to earn an NFT ship.
+      </Typography>
+      <Typography variant={"body2"} mb={6} color={"grey.A50"}>
+        Use cursor keys or A, S to move, space to fire
+      </Typography>
+
+      <Typography
+        variant={"body2"}
+        sx={{ textAlign: "left", color: "grey.A50" }}
+      >
         Choose Starship
       </Typography>
       <Divider sx={{ backgroundColor: "grey.A10", mb: ".5rem", mt: ".3rem" }} />
