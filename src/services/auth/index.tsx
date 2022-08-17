@@ -167,7 +167,7 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
   };
 
   useEffect(() => {
-    // initialize();
+    initialize();
   }, []);
 
   const contextProvider = {
