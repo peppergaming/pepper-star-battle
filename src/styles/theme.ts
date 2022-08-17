@@ -56,23 +56,26 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: ["Acumin Pro", "Roboto", "sans-serif"].join(","),
+    fontFamily: ["acumin-pro", "Roboto", "sans-serif"].join(","),
     h1: {
-      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontFamily:
+        "acumin-pro-condensed,Roboto Condensed, Roboto,Segoe UI, Helvetica, sans-serif",
       fontWeight: 700,
       lineHeight: 1.1,
       fontSize: "3rem",
       color: "white",
     },
     overline: {
-      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontFamily:
+        "acumin-pro-condensed,Roboto Condensed, Roboto,Segoe UI, Helvetica, sans-serif",
       fontWeight: 700,
       lineHeight: 1.1,
       fontSize: "3rem",
       color: palette_grey["A20"],
     },
     h4: {
-      fontFamily: "Acumin Pro Condensed,Roboto,Segoe UI, Helvetica, sans-serif",
+      fontFamily:
+        "acumin-pro-condensed,Roboto Condensed, Roboto, Segoe UI, Helvetica, sans-serif",
       fontSize: "1.2rem",
       lineHeight: 2,
       color: "white",
