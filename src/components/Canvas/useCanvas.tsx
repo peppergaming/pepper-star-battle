@@ -1,9 +1,8 @@
-import {useEffect} from "react";
-
+import { useEffect } from "react";
 
 const useCanvas = (
   draw: (ctx: any, frameCount: any) => any,
-  options = {context: null},
+  options = { context: null },
   canvasRef: any
 ) => {
   // const canvasRef = useRef(null);

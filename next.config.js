@@ -2,8 +2,6 @@
 const path = require("path");
 
 const ContentSecurityPolicy = `
-  default-src 'self';
-  script-src 'self';
   frame-ancestors 'self' app.peppergaming.com localhost:3000; 
 `;
 
@@ -29,9 +27,6 @@ const nextConfig = {
         ]
       }
     ];
-  },
-  sassOptions: {
-    includePaths: [path.join(__dirname, "styles")],
   },
   reactStrictMode: false,
   swcMinify: false,

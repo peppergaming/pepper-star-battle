@@ -35,7 +35,7 @@
     height: calc(100vh - #{$headerHeight});
     min-height: 750px;
     padding-bottom: $headerHeight;
-    background-color:  map.get($grey, 900);
+    background-color: map.get($grey, 900);
 
     .MainWrapper {
       width: $monitorSize;
