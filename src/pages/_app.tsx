@@ -19,7 +19,8 @@ function PepperStarBattle(props: PepperStarGameProps) {
     <>
       <Head>
         <title>Pepper Star Battle</title>
-        <meta
+          <link rel="icon" href="/icons/favicon.ico" />
+          <meta
           name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
         />
