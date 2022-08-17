@@ -28,7 +28,7 @@ export const SelectShip = ({ handlePlay }: SelectShipProps) => {
         Pepper Star Battle
       </Typography>
       <Typography variant={"h4"} mb={1}>
-        Successfully complete a game to earn an NFT ship.
+        Win a game to get a powerful NFT spaceship
       </Typography>
       <Typography variant={"body2"} mb={6} color={"grey.A50"}>
         Use cursor keys or A, S to move, space to fire

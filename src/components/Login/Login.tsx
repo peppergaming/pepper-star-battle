@@ -163,10 +163,10 @@ const LoginFormView = ({
         Pepper Star Battle
       </Typography>
       <Typography variant={"h4"} mb={1}>
-        Defend your star ship by playing this classic arcade
+        The smoothest experience you've ever had on blockchain
       </Typography>
       <Typography variant={"body2"} mb={7} color={"grey.A50"}>
-        The game is built with the{" "}
+        Easily built with{" "}
         <Link href="https://github.com/peppergaming/auth" target="_blank">
           Pepper Auth SDK
         </Link>
