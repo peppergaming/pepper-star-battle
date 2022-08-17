@@ -29,9 +29,14 @@ const nextConfig = {
         ],
       },
       {
-        key: "X-Frame-Options",
-        value: "allow-from app.peppergaming.com",
-      },
+        source: "/login",
+        headers:[
+          {
+            key: "X-Frame-Options",
+            value: "allow-from app.peppergaming.com",
+          },
+        ]
+      }
     ];
   },
   sassOptions: {
