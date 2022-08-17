@@ -29,11 +29,6 @@ const eventSubscriber: EventSubscriber = {
     provider: Provider,
     signer: PepperWallet
   ) {
-    setUserInfo(userInfo);
-    setIsPepperLogged(true);
-    setProvider(provider);
-    setSigner(signer);
-    setIsLoading(false);
     console.debug("Connected");
   },
   async onConnecting() {
@@ -55,11 +50,9 @@ let options: PepperLoginOptions = {
   chainConfig: {
     chainId: 4,
     name: "Ankr Rinkeby RPC",
-    rpcTarget: CHAIN_RPC_URL,
+    rpcTarget: "https://rpc.ankr.com/eth_rinkeby",
   },
-  isDevelopment: isDev,
-  isMobile: isMobile,
-  logLevel: isDev ? "debug" : "info",
+  //...
   eventSubscriber,
 };
 
