@@ -11,7 +11,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: "/login",
+        source: '/:path*',
         headers: [
           {
             key: "Content-Security-Policy",
@@ -20,16 +20,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/oauth",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: ContentSecurityPolicy.replace(/\s{2,}/g, " ").trim(),
-          },
-        ],
-      },
-      {
-        source: "/login",
+        source: '/:path*',
         headers:[
           {
             key: "X-Frame-Options",
