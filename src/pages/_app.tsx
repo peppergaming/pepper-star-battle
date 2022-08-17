@@ -15,16 +15,16 @@ function PepperStarBattle(props: PepperStarGameProps) {
   const { Component, pageProps } = props;
 
   const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <>
       <Head>
         <title>Pepper Star Battle</title>
-          <link rel="icon" href="/icons/favicon.ico" />
-          <meta
+        <link rel="icon" href="/icons/favicon.ico" />
+        <meta
           name="viewport"
           content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
         />
-        <link rel="stylesheet" href="https://use.typekit.net/txv3qmz.css" />
       </Head>
       <ThemeProvider theme={theme}>
         <AuthConfigService>
