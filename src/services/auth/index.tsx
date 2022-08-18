@@ -72,6 +72,11 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
         setIsLoading(false);
         console.debug("Connected");
       },
+      onDeepHydrationCompleted: async function (success) {
+        if (!success) {
+          setIsLoading(false);
+        }
+      },
       async onConnecting() {
         console.debug("Connecting");
       },
@@ -93,7 +98,7 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
 
     let options: PepperLoginOptions = {
       chainConfig: {
-        chainId: 4,
+        chainId: "4",
         name: "Ankr Rinkeby RPC",
         rpcTarget: CHAIN_RPC_URL,
       },
@@ -101,15 +106,18 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
       isMobile: isMobile,
       logLevel: isDev ? "debug" : "info",
       eventSubscriber,
+      deepHydration: true,
     };
 
     const pepperSdk = new PepperLogin(options);
 
-    await pepperSdk.init();
+    const initInfo = await pepperSdk.init();
+    console.debug("Pepper login init info: ", initInfo);
 
     setLoginSdk(pepperSdk);
-
-    setIsLoading(false);
+    if (!initInfo.willDeepHydrate) {
+      setIsLoading(false);
+    }
   };
 
   const socialLogin = async (
@@ -118,6 +126,7 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
     loginToken?: string
   ) => {
     let web3Provider: Provider | null = null;
+    console.debug(loginSdk);
     if (loginSdk && loginSdk.status === ADAPTER_STATUS.READY) {
       try {
         setIsLoading(true);
