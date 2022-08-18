@@ -17,15 +17,6 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: '/:path*',
-        headers:[
-          {
-            key: "X-Frame-Options",
-            value: "allow-from app.peppergaming.com",
-          },
-        ]
-      }
     ];
   },
   reactStrictMode: false,
