@@ -81,6 +81,9 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
           <Typography variant={"h1"}>
             {victory ? "You Won" : "Game Over"}
           </Typography>
+          <Typography variant={"body2"}>
+            Don't worry, we know it's not easy to win
+          </Typography>
         </Stack>
         <Button
           sx={{ color: "white", marginTop: "10rem" }}
