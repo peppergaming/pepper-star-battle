@@ -3,12 +3,12 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ReplayIcon from "@mui/icons-material/Replay";
 import Link from "@mui/material/Link";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, { useEffect, useState } from "react";
 import { useAuthConfig } from "@/services/auth";
 import Ship from "@/game/Ship";
 import { DEFAULT_SHIP, ETHERSCAN_URL } from "@/config/constants";
 import { useGameConfig } from "@/services/game";
-import { CircularProgress } from "@mui/material";
 
 interface GameOverProps {
   handleReplay: () => void;
@@ -82,7 +82,7 @@ export const GameOver = ({ victory, handleReplay, hasNft }: GameOverProps) => {
             {victory ? "You Won" : "Game Over"}
           </Typography>
           <Typography variant={"body2"}>
-            Don't worry, we know it's not easy to win
+            {victory ? "" : "Don't worry, we know it's not easy to win"}
           </Typography>
         </Stack>
         <Button
@@ -140,9 +140,10 @@ const Claim = ({ claimNFT, handleReplay, isLoading }: ClaimProps) => {
             fullWidth
             variant={"contained"}
             onClick={claimNFT}
+            disabled={isLoading}
           >
             <span style={{ color: "white" }}>
-              {isLoading ? <CircularProgress /> : "Claim"}
+              {isLoading ? <CircularProgress color={"inherit"} /> : "Claim"}
             </span>
           </Button>
           <Button

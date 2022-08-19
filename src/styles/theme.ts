@@ -136,6 +136,9 @@ const theme = createTheme({
           "&:hover": {
             backgroundColor: palette_grey["700"],
           },
+          "&.Mui-disabled": {
+            borderColor: palette_grey["A20"],
+          },
         },
       },
       variants: [
