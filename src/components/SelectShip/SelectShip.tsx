@@ -14,13 +14,17 @@ interface SelectShipProps {
 export const SelectShip = ({ handlePlay }: SelectShipProps) => {
   const [pepperShips, setPepperShips] = React.useState([DEFAULT_SHIP]);
 
-  const { ships } = useGameConfig();
+  const { ships, refreshShips } = useGameConfig();
 
   useEffect(() => {
     if (ships) {
       setPepperShips([DEFAULT_SHIP, ...ships]);
     }
   }, [ships]);
+
+  useEffect(() => {
+    refreshShips();
+  }, []);
 
   return (
     <div className={style.ShipPage}>

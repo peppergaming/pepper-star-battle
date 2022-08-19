@@ -12,6 +12,7 @@ import ContractAbi from "@/assets/web3/contract_abi.json";
 export interface GameConfigContextInterface {
   ships: Ship[];
   selectedShip: Ship;
+  addShip: (ship: Ship) => void;
   selectShip: (ship: Ship) => void;
   refreshShips: () => Promise<void>;
 }
@@ -19,6 +20,7 @@ export interface GameConfigContextInterface {
 export const GameConfigContext = createContext<GameConfigContextInterface>({
   ships: [],
   selectedShip: DEFAULT_SHIP,
+  addShip: () => {},
   selectShip: () => {},
   refreshShips: async () => {},
 });
@@ -34,7 +36,7 @@ export const GameConfigService = ({ children }: any) => {
   const refreshShips = async () => {
     if (contract && userInfo) {
       const userTokens = await contract.walletOfOwner(userInfo?.publicAddress);
-      const shipsFound = [];
+      let shipsFound = [...ships];
       for (const userToken of userTokens) {
         try {
           let tokenID = userToken.toNumber();
@@ -60,8 +62,22 @@ export const GameConfigService = ({ children }: any) => {
           console.error(e);
         }
       }
+      shipsFound = shipsFound.filter(
+        (ship: Ship, index: number, self: Ship[]) => {
+          return (
+            index === self.findIndex((s: Ship) => s.edition === ship.edition)
+          );
+        }
+      );
       setShips(shipsFound);
     }
+  };
+
+  const addShip = (ship: Ship) => {
+    if (!ship) {
+      return;
+    }
+    setShips([...ships, ship]);
   };
 
   useEffect(() => {
@@ -86,6 +102,7 @@ export const GameConfigService = ({ children }: any) => {
   const contextProvider = {
     ships,
     selectedShip,
+    addShip,
     selectShip: setSelectedShip,
     refreshShips,
   };
