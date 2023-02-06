@@ -98,8 +98,8 @@ export const AuthConfigService = ({ children }: AuthConfigProviderProps) => {
 
     let options: PepperLoginOptions = {
       chainConfig: {
-        chainId: "4",
-        name: "Ankr Rinkeby RPC",
+        chainId: "5",
+        name: "Ankr Goerli RPC",
         rpcTarget: CHAIN_RPC_URL,
       },
       isDevelopment: isDev,
